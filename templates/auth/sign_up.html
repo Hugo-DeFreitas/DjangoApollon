@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+{% load static i18n %}
+{% block body %}
+    <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle" uk-grid>
+        <div class="uk-background-cover" style="background-image: url('{% static 'img/listening.jpg' %}');" uk-height-viewport></div>
+        <div class="uk-padding-large">
+            <h1>{% trans 'Sign up' %}</h1>
+            <p class="uk-text-light">
+                {% trans 'Sign up content' %}
+            </p>
+            <form>
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: user"></a>
+                    <input class="uk-input" name="username" type="text">
+                </div>
+                <div class="uk-inline uk-width-1-1">
+                    <a class="uk-form-icon" uk-icon="icon: lock"></a>
+                    <input class="uk-input" name="password" type="password">
+                </div>
+
+                <div class="uk-margin-top">
+                    <button class="uk-button uk-button-large uk-button-primary uk-button-default">{% trans "Let's go !" %}</button>
+                    <button class="uk-button uk-button-large uk-button-secondary uk-button-default">{% trans "Forgotten password ?" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
