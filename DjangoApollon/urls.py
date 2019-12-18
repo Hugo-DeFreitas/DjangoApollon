@@ -13,9 +13,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path
+from app.views import *
+from app.views import splash
+from app.views.login import UserLoginView
+from app.views.search import searchSongs
 
 urlpatterns = [
+    url('^$', splash, name='app_home'),
     path('admin/', admin.site.urls),
+    url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
+    url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
+    path('search/songs/<str:search>', searchSongs, name='search_songs'),
+    # url(r'^forgot-password/?$', RegisterView.as_view(), name='app_forgot_password'),
 ]
+
+urlpatterns += i18n_patterns(
+    url(r'^sign_in/?$', LoginView.as_view(), name='app_login'),
+    path('home/', splash, name='app_home'),
+)
