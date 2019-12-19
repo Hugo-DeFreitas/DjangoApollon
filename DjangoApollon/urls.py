@@ -20,15 +20,15 @@ from django.urls import path
 from app.views import *
 from app.views import splash
 from app.views.login import UserLoginView
-from app.views.search import searchSongs
+from app.views.search import searchSongs, getSong
 
 urlpatterns = [
     url('^$', splash, name='app_home'),
     path('admin/', admin.site.urls),
     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
-    path('search/songs/<str:search>', searchSongs, name='search_songs'),
-    # url(r'^forgot-password/?$', RegisterView.as_view(), name='app_forgot_password'),
+    path('search/<str:search>', searchSongs, name='search_songs'),
+    path('search/song/<int:search>', getSong, name='get_song'),
 ]
 
 urlpatterns += i18n_patterns(

@@ -36,8 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'app.apps.AppConfig',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,5 +133,5 @@ LANGUAGES = (
 
 GENIUS_API_CLIENT_ID = 'jSCXyeAiC8kpuRt96hAntZ0ZysmgtQQMKuCw2gC_E6MMrEcwfEjk-ruDGL0VSYVv'
 GENIUS_API_CLIENT_SECRET = 'ND_52u2YOxDwtttsSTwrGb9Pu8En3Z0SdSJsyT7Mp_zWvv416GRoz6nfPmIHCpCBZhDfaiksQ6S4jSX5Gd1K8w'
-GENIUS_API_CLIENT_TOKEN = 'pxL3lye2mLtAEzgMzf3HL9pCQjGMW5lVgNAyajpjbj6dxwlBaER1wkrtuzeSvseu'
+GENIUS_API_CLIENT_TOKEN = 'AJDHRxd-l2jmvWuzuJ_zwDouMH1hl3ehlbC5WuIr-CWGciQBGP7IRWUl0cFjqnFS'
 GENIUS_API_MAIN_ENDPOINT = 'https://api.genius.com/'
