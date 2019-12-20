@@ -1,36 +1,74 @@
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.forms import Form, widgets
+from django.utils.translation import gettext_lazy as _
 
 
-class RegisterForm(Form):
+class RegisterForm(UserCreationForm):
     username = forms.CharField(max_length=250,
-                               min_length=4)
+                               min_length=4,
+                               widget=widgets.Input(
+                                   attrs={
+                                       'class': 'uk-input',
+                                       'placeholder': _('Username')
+                                   }
+                               ))
+    email = forms.CharField(max_length=250,
+                            min_length=4,
+                            widget=widgets.EmailInput(
+                                attrs={
+                                    'class': 'uk-input',
+                                    'placeholder': _('Email')
+                                }
+                            ))
 
     first_name = forms.CharField(max_length=250,
-                                 min_length=4)
-
+                                 label=_('First name'),
+                                 widget=widgets.Input(
+                                     attrs={
+                                         'class': 'uk-input',
+                                         'placeholder': _('First name')
+                                     }
+                                 ))
     last_name = forms.CharField(max_length=250,
-                                min_length=4)
+                                label=_('Last name'),
+                                widget=widgets.Input(
+                                    attrs={
+                                        'class': 'uk-input',
+                                        'placeholder': _('Last name')
+                                    }
+                                ))
 
-    email = forms.CharField(max_length=250,
-                            min_length=4)
+    password1 = forms.CharField(max_length=250,
+                                min_length=4,
+                                label=_('First password'),
+                                widget=widgets.PasswordInput(
+                                    attrs={
+                                        'class': 'uk-input',
+                                        'placeholder': _('Password')
+                                    }
+                                ))
 
-    password_1 = forms.CharField(max_length=250,
-                                 min_length=4,
-                                 widget=widgets.PasswordInput)
+    password2 = forms.CharField(max_length=250,
+                                min_length=4,
+                                label=_('Second password'),
+                                widget=widgets.PasswordInput(
+                                    attrs={
+                                        'class': 'uk-input',
+                                        'placeholder': _('Repeat password')
+                                    }
+                                ))
 
-    password_2 = forms.CharField(max_length=250,
-                                 min_length=4,
-                                 widget=widgets.PasswordInput)
+    biography = forms.CharField(max_length=1000,
+                                required=False,
+                                widget=widgets.Textarea(
+                                    attrs={
+                                        'class': 'uk-input',
+                                        'placeholder': _('Biography')
+                                    }
+                                ))
 
-    def clean_username(self):
-        if not self.cleaned_data['username'].isalnum():
-            self.add_error('username', 'Un nom d\'utilisateur devrait uniquement contenir des caractères '
-                                       'alphanumériques')
-            return None
-        return self.cleaned_data['username']
-
-    def clean(self):
-        if self.cleaned_data.get('password_1') != self.cleaned_data.get('password_2'):
-            self.add_error('password_1', 'Les mots de passes ne sont pas identiques.')
-        return super().clean()
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')

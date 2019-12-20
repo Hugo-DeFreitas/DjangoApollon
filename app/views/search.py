@@ -22,3 +22,12 @@ def getSong(request, search):
     response = requests.get(getSongEndpoint(search),
                             params=payload)
     return HttpResponse(response)
+
+def getArtist(request, search):
+    payload = {
+        'genius_client_id': GENIUS_API_CLIENT_ID,
+        'genius_secret_id': GENIUS_API_CLIENT_SECRET,
+    }
+    response = requests.get(getArtistEndpoint(search),
+                            params=payload)
+    return HttpResponse(response)

@@ -9,9 +9,10 @@ def getSearchEndpoint(search):
 
 
 def getSongEndpoint(song_id):
-    return GENIUS_API_MAIN_ENDPOINT + 'songs/' + str(song_id) + '?access_token=' + GENIUS_API_CLIENT_TOKEN
+    return GENIUS_API_MAIN_ENDPOINT + 'songs/' + str(song_id) + '?access_token=' + GENIUS_API_CLIENT_TOKEN \
+           + '&text_format=plain'
 
 
 def getArtistEndpoint(artist_id):
     return GENIUS_API_MAIN_ENDPOINT + 'artists/' + str(artist_id) + '?access_token=' + \
-           GENIUS_API_CLIENT_TOKEN
+           GENIUS_API_CLIENT_TOKEN + '&text_format=plain'

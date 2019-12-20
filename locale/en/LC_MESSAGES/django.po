@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-13 15:16+0000\n"
+"POT-Creation-Date: 2019-12-20 21:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,70 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: DjangoApollon/settings.py:127
+#: DjangoApollon/settings.py:130
 msgid "English"
 msgstr ""
 
-#: DjangoApollon/settings.py:128
+#: DjangoApollon/settings.py:131
 msgid "French"
 msgstr ""
 
-#: templates/layouts/splash.html:4
-msgid "Welcome"
+#: app/forms/register.py:16 templates/auth/sign_up.html:21
+msgid "First name"
+msgstr ""
+
+#: app/forms/register.py:18 templates/auth/sign_up.html:25
+msgid "Last name"
+msgstr ""
+
+#: app/forms/register.py:23
+msgid "First password"
+msgstr ""
+
+#: app/forms/register.py:28
+msgid "Second password"
+msgstr ""
+
+#: templates/auth/sign_up.html:7
+msgid "Sign up"
+msgstr ""
+
+#: templates/auth/sign_up.html:9
+msgid "Sign up content"
+msgstr "Millions of songs. An infinity of playlists. No credit card needed."
+
+#: templates/auth/sign_up.html:16
+msgid "Username"
+msgstr ""
+
+#: templates/auth/sign_up.html:31
+msgid "Email"
+msgstr ""
+
+#: templates/auth/sign_up.html:35
+msgid "Password"
+msgstr ""
+
+#: templates/auth/sign_up.html:39
+msgid "Repeat password"
+msgstr ""
+
+#: templates/auth/sign_up.html:44
+msgid "Biography"
+msgstr ""
+
+#: templates/auth/sign_up.html:48
+msgid "Let's go !"
+msgstr ""
+
+#: templates/auth/sign_up.html:50
+msgid "Forgotten password ?"
+msgstr ""
+
+#: templates/auth/sign_up.html:52
+msgid "Already an account ?"
+msgstr ""
+
+#: templates/auth/sign_up.html:52
+msgid "Sign in"
 msgstr ""

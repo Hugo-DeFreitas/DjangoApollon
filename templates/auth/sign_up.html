@@ -2,27 +2,68 @@
 {% load static i18n %}
 {% block body %}
     <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle" uk-grid>
-        <div class="uk-background-cover" style="background-image: url('{% static 'img/listening.jpg' %}');" uk-height-viewport></div>
+        <div class="uk-background-cover uk-visible@s" style="background-image: url('{% static 'img/listening.jpg' %}');" uk-height-viewport></div>
         <div class="uk-padding-large">
             <h1>{% trans 'Sign up' %}</h1>
             <p class="uk-text-light">
                 {% trans 'Sign up content' %}
             </p>
-            <form>
+            <form action="" id="{{ form.auto_id }}" method="post">
+                {% csrf_token %}
+
                 <div class="uk-inline uk-width-1-1 uk-margin-bottom">
                     <a class="uk-form-icon" uk-icon="icon: user"></a>
-                    <input class="uk-input" name="username" type="text">
-                </div>
-                <div class="uk-inline uk-width-1-1">
-                    <a class="uk-form-icon" uk-icon="icon: lock"></a>
-                    <input class="uk-input" name="password" type="password">
+                    {{ form.username }}
                 </div>
 
-                <div class="uk-margin-top">
-                    <button class="uk-button uk-button-large uk-button-primary uk-button-default">{% trans "Let's go !" %}</button>
-                    <button class="uk-button uk-button-large uk-button-secondary uk-button-default">{% trans "Forgotten password ?" %}</button>
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: info"></a>
+                    {{ form.first_name }}
+                </div>
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: info"></a>
+                    {{ form.last_name }}
+                </div>
+
+
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: mail"></a>
+                    {{ form.email }}
+                </div>
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: lock"></a>
+                    {{ form.password1 }}
+                </div>
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: lock"></a>
+                    {{ form.password2 }}
+                </div>
+
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: question"></a>
+                    {{ form.biography }}
+                </div>
+
+                <div class="uk-margin-top uk-child-width-1-2@m uk-grid-collapse" uk-grid>
+                    <button type="submit" class="uk-margin-bottom uk-button uk-button-large uk-button-primary uk-button-default">{% trans "Let's go !" %}</button>
+                    <a href="                    @todo procédure oubli mot de passe
+                    " class="uk-margin-bottom uk-button uk-button-large uk-button-secondary uk-button-default">{% trans "Forgotten password ?" %}</a>
+                    <p class="uk-text-meta">
+                        {% trans 'Already an account ?' %} <a href="{% url 'app_login' %}">{% trans 'Sign in' %}</a>.
+                    </p>
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        UIkit.notification('{{ field.label }} : {{ error }}', 'danger');
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        })
+    </script>
 {% endblock %}

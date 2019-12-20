@@ -23,15 +23,23 @@ from app.views.login import UserLoginView
 from app.views.search import searchSongs, getSong
 
 urlpatterns = [
+    # Page d'accueil
     url('^$', splash, name='app_home'),
+    # Admin
     path('admin/', admin.site.urls),
+    # Authentidication
     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
+    # Moteur de recherche
     path('search/<str:search>', searchSongs, name='search_songs'),
     path('search/song/<int:search>', getSong, name='get_song'),
+    path('search/artist/<int:search>', getSong, name='get_artist'),
 ]
 
 urlpatterns += i18n_patterns(
+    # Page d'accueil
+    url('^$', splash, name='app_home'),
+    # Authentification
     url(r'^sign_in/?$', LoginView.as_view(), name='app_login'),
-    path('home/', splash, name='app_home'),
+    url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
 )
