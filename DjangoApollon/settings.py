@@ -135,3 +135,11 @@ GENIUS_API_CLIENT_ID = 'jSCXyeAiC8kpuRt96hAntZ0ZysmgtQQMKuCw2gC_E6MMrEcwfEjk-ruD
 GENIUS_API_CLIENT_SECRET = 'ND_52u2YOxDwtttsSTwrGb9Pu8En3Z0SdSJsyT7Mp_zWvv416GRoz6nfPmIHCpCBZhDfaiksQ6S4jSX5Gd1K8w'
 GENIUS_API_CLIENT_TOKEN = 'AJDHRxd-l2jmvWuzuJ_zwDouMH1hl3ehlbC5WuIr-CWGciQBGP7IRWUl0cFjqnFS'
 GENIUS_API_MAIN_ENDPOINT = 'https://api.genius.com/'
+
+APOLLON_MAIL = 'no-reply@apollon.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'apollon.app.fr@gmail.com'
+EMAIL_HOST_PASSWORD = 'DjangoApollon'

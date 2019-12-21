@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.crypto import get_random_string
 
 
 class UserProfile(models.Model):
@@ -18,6 +19,10 @@ class UserProfile(models.Model):
     is_valid = models.BooleanField(blank=True,
                                    null=True,
                                    default=False)
+    confirmation_token = models.CharField(blank=True,
+                                          null=True,
+                                          default=get_random_string(length=32),
+                                          max_length=32)
 
     def __str__(self):
         return '{} ({} {})'.format(self.user.username,

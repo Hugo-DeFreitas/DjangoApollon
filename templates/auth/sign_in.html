@@ -1,1 +1,41 @@
-Sign in
+{% extends 'layouts/base.html' %}
+{% load static i18n %}
+{% block body %}
+    <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle" uk-grid>
+        <div class="uk-padding-large">
+            <h1>{% trans 'Sign in' %}</h1>
+            <p class="uk-text-light">
+                {% trans 'Sign in content' %}
+            </p>
+            <form action="" id="{{ form.auto_id }}" method="post">
+                {% csrf_token %}
+
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: user"></a>
+                    {{ form.username }}
+                </div>
+
+                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                    <a class="uk-form-icon" uk-icon="icon: lock"></a>
+                    {{ form.password }}
+                </div>
+
+                <div class="uk-margin-top uk-child-width-1-2@m uk-grid-collapse" uk-grid>
+                    <button type="submit" class="uk-margin-bottom uk-button uk-button-large uk-button-primary uk-button-default">{% trans "Let's go !" %}</button>
+                    <a href="" class="uk-margin-bottom uk-button uk-button-large uk-button-secondary uk-button-default">{% trans "Forgotten password ?" %}</a>
+                    <p class="uk-text-meta">
+                        {% trans 'No account ?' %} <a href="{% url 'app_register' %}">{% trans 'Sign up' %}</a>.
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="uk-background-cover uk-visible@s" style="background-image: url('{% static 'img/listening-airpods.jpg' %}');" uk-height-viewport></div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            {% if form.errors %}
+                UIkit.notification('{% trans 'Please provide a correct password and/or username' %}','danger');
+            {% endif %}
+        })
+    </script>
+{% endblock %}

@@ -20,7 +20,8 @@ from django.urls import path
 from app.views import *
 from app.views import splash
 from app.views.login import UserLoginView
-from app.views.search import searchSongs, getSong
+from app.views.register import *
+from app.views.search import *
 
 urlpatterns = [
     # Page d'accueil
@@ -30,6 +31,8 @@ urlpatterns = [
     # Authentidication
     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
+    path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
+    path('sign_up/account_confirmation/<str:token>', account_confirmation, name='app_account_confirmation'),
     # Moteur de recherche
     path('search/<str:search>', searchSongs, name='search_songs'),
     path('search/song/<int:search>', getSong, name='get_song'),
@@ -40,6 +43,7 @@ urlpatterns += i18n_patterns(
     # Page d'accueil
     url('^$', splash, name='app_home'),
     # Authentification
-    url(r'^sign_in/?$', LoginView.as_view(), name='app_login'),
+    url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
+    path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
 )
