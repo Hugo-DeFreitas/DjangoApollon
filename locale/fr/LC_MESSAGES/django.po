@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-22 15:16+0000\n"
+"POT-Creation-Date: 2019-12-22 18:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: DjangoApollon/settings.py:132
+#: DjangoApollon/settings.py:132 templates/layouts/splash.html:36
 msgid "English"
 msgstr "Anglais"
 
-#: DjangoApollon/settings.py:133
+#: DjangoApollon/settings.py:133 templates/layouts/splash.html:35
 msgid "French"
 msgstr "Français"
 
@@ -86,7 +86,9 @@ msgstr ""
 
 #: templates/auth/account_validated.html:13
 #: templates/auth/password_reset_complete.html:13
+#: templates/auth/password_reset_confirm.html:36
 #: templates/auth/password_reset_sent.html:13 templates/auth/thanks.html:13
+#: templates/layouts/splash.html:160
 msgid "Home"
 msgstr "Accueil"
 
@@ -140,7 +142,8 @@ msgstr ""
 "réninitialiser votre mot de passe."
 
 #: templates/auth/sign_in.html:6 templates/auth/sign_up.html:50
-#: templates/layouts/splash.html:51
+#: templates/layouts/splash.html:29 templates/layouts/splash.html:55
+#: templates/layouts/splash.html:165
 msgid "Sign in"
 msgstr "Se connecter"
 
@@ -163,7 +166,8 @@ msgid "No account ?"
 msgstr "Pas de compte ?"
 
 #: templates/auth/sign_in.html:34 templates/auth/sign_up.html:7
-#: templates/layouts/splash.html:52
+#: templates/layouts/splash.html:26 templates/layouts/splash.html:56
+#: templates/layouts/splash.html:166
 msgid "Sign up"
 msgstr "S'inscrire"
 
@@ -192,10 +196,109 @@ msgstr ""
 msgid "Sign out"
 msgstr "Se déconnecter"
 
-#: templates/mail/account_validated.html:9 templates/mail/reset_password.html:9
-#: templates/mail/welcome.html:9
+#: templates/layouts/splash.html:32
+msgid "Language"
+msgstr "Langue"
+
+#: templates/layouts/splash.html:52 templates/mail/account_validated.html:9
+#: templates/mail/reset_password.html:9 templates/mail/welcome.html:9
 msgid "Welcome"
 msgstr "Bienvenue"
+
+#: templates/layouts/splash.html:53
+msgid "A better way to listen to your music"
+msgstr "Écoutez votre musique. Mieux."
+
+#: templates/layouts/splash.html:54
+msgid "An alternative content"
+msgstr ""
+"Apollon est la meilleure alternative aux géants de l'industrie musicale. "
+"100% gratuite. Toujours."
+
+#: templates/layouts/splash.html:75
+msgid "Main features"
+msgstr "Fonctionnalités"
+
+#: templates/layouts/splash.html:76
+msgid "Why paying for something that you love"
+msgstr "Pourquoi payer pour une chose que vous aimez"
+
+#: templates/layouts/splash.html:78
+msgid "Main features description"
+msgstr ""
+"Apollon est un créateur de playlist simple, mais terriblement efficace. Créé "
+"initiallement dans le cadre d'un projet scolaire afin d'apprendre le "
+"framework Django, les créateurs se sont emballés et les choses ont commencé "
+"à devenir intéressantes..."
+
+#: templates/layouts/splash.html:84
+msgid "Share your playlists"
+msgstr "Partagez vos playlists"
+
+#: templates/layouts/splash.html:86
+msgid ""
+"Create your own playlists, keep them private for you, or share it for the "
+"other users."
+msgstr ""
+"Créez vos propres playlists. Gardez les privée, ou partagez les avec "
+"d'autres utilisateurs."
+
+#: templates/layouts/splash.html:87
+msgid "Create your account"
+msgstr "Valider mon compte"
+
+#: templates/layouts/splash.html:91
+msgid "Millions of songs"
+msgstr "Des millions de titres"
+
+#: templates/layouts/splash.html:93
+msgid ""
+"Explore the largest collaborative songs library. Search your favorite "
+"artists."
+msgstr ""
+"Explorer la plus grande bibliothèque collaborative de titres musicaux. "
+"Chercher vos artistes favoris."
+
+#: templates/layouts/splash.html:94 templates/layouts/splash.html:107
+msgid "Learn about"
+msgstr "En savoir plus"
+
+#: templates/layouts/splash.html:98
+msgid "Security"
+msgstr "Sécurité"
+
+#: templates/layouts/splash.html:100
+msgid "Account validation, password recovery : we value your privacy."
+msgstr ""
+"Validation de compte, récupération de mot de passe perdu. Parce que votre "
+"sécurité compte pour nous."
+
+#: templates/layouts/splash.html:104
+msgid "Fast, reliable."
+msgstr "Rapide, fiable."
+
+#: templates/layouts/splash.html:106
+msgid "Developped with Django, you can count on a fully-featured web-app."
+msgstr ""
+"Développé avec Django, comptez sur une web-app pleinement fonctionnelle."
+
+#: templates/layouts/splash.html:122
+msgid "The apollon project"
+msgstr "Projet Apollon"
+
+#: templates/layouts/splash.html:124
+msgid "Apollon short description features"
+msgstr ""
+"Sa musique c'est important. Bien triée, c'est encore mieux. Regroupez vos "
+"musiques simplement grâce à Apollon."
+
+#: templates/layouts/splash.html:133
+msgid "Contact"
+msgstr ""
+
+#: templates/layouts/splash.html:141
+msgid "Address"
+msgstr "Adresse"
 
 #: templates/mail/account_validated.html:306
 msgid "Your account has been validated"

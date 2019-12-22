@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-22 15:16+0000\n"
+"POT-Creation-Date: 2019-12-22 18:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: DjangoApollon/settings.py:132
+#: DjangoApollon/settings.py:132 templates/layouts/splash.html:36
 msgid "English"
 msgstr ""
 
-#: DjangoApollon/settings.py:133
+#: DjangoApollon/settings.py:133 templates/layouts/splash.html:35
 msgid "French"
 msgstr ""
 
@@ -85,7 +85,9 @@ msgstr ""
 
 #: templates/auth/account_validated.html:13
 #: templates/auth/password_reset_complete.html:13
+#: templates/auth/password_reset_confirm.html:36
 #: templates/auth/password_reset_sent.html:13 templates/auth/thanks.html:13
+#: templates/layouts/splash.html:160
 msgid "Home"
 msgstr ""
 
@@ -134,7 +136,8 @@ msgid "Password reset email sent content"
 msgstr "We just sent you an email, that will allow you to reset your password."
 
 #: templates/auth/sign_in.html:6 templates/auth/sign_up.html:50
-#: templates/layouts/splash.html:51
+#: templates/layouts/splash.html:29 templates/layouts/splash.html:55
+#: templates/layouts/splash.html:165
 msgid "Sign in"
 msgstr ""
 
@@ -155,7 +158,8 @@ msgid "No account ?"
 msgstr ""
 
 #: templates/auth/sign_in.html:34 templates/auth/sign_up.html:7
-#: templates/layouts/splash.html:52
+#: templates/layouts/splash.html:26 templates/layouts/splash.html:56
+#: templates/layouts/splash.html:166
 msgid "Sign up"
 msgstr ""
 
@@ -181,9 +185,100 @@ msgstr ""
 msgid "Sign out"
 msgstr "Millions of songs. An infinity of playlists. No credit card needed."
 
-#: templates/mail/account_validated.html:9 templates/mail/reset_password.html:9
-#: templates/mail/welcome.html:9
+#: templates/layouts/splash.html:32
+msgid "Language"
+msgstr ""
+
+#: templates/layouts/splash.html:52 templates/mail/account_validated.html:9
+#: templates/mail/reset_password.html:9 templates/mail/welcome.html:9
 msgid "Welcome"
+msgstr ""
+
+#: templates/layouts/splash.html:53
+msgid "A better way to listen to your music"
+msgstr ""
+
+#: templates/layouts/splash.html:54
+msgid "An alternative content"
+msgstr ""
+"Apollon is the best free alternative to the giants of the music industry. "
+"Free. Always."
+
+#: templates/layouts/splash.html:75
+msgid "Main features"
+msgstr ""
+
+#: templates/layouts/splash.html:76
+msgid "Why paying for something that you love"
+msgstr ""
+
+#: templates/layouts/splash.html:78
+msgid "Main features description"
+msgstr ""
+"Apollon is a simple, yet powerful, playlist creator. It was initially "
+"created for school purposes, in order to learn the Django Web Framework, but "
+"things started getting crazy :) ."
+
+#: templates/layouts/splash.html:84
+msgid "Share your playlists"
+msgstr ""
+
+#: templates/layouts/splash.html:86
+msgid ""
+"Create your own playlists, keep them private for you, or share it for the "
+"other users."
+msgstr ""
+
+#: templates/layouts/splash.html:87
+msgid "Create your account"
+msgstr "Account validation"
+
+#: templates/layouts/splash.html:91
+msgid "Millions of songs"
+msgstr ""
+
+#: templates/layouts/splash.html:93
+msgid ""
+"Explore the largest collaborative songs library. Search your favorite "
+"artists."
+msgstr ""
+
+#: templates/layouts/splash.html:94 templates/layouts/splash.html:107
+msgid "Learn about"
+msgstr ""
+
+#: templates/layouts/splash.html:98
+msgid "Security"
+msgstr ""
+
+#: templates/layouts/splash.html:100
+msgid "Account validation, password recovery : we value your privacy."
+msgstr ""
+
+#: templates/layouts/splash.html:104
+msgid "Fast, reliable."
+msgstr ""
+
+#: templates/layouts/splash.html:106
+msgid "Developped with Django, you can count on a fully-featured web-app."
+msgstr ""
+
+#: templates/layouts/splash.html:122
+msgid "The apollon project"
+msgstr ""
+
+#: templates/layouts/splash.html:124
+msgid "Apollon short description features"
+msgstr ""
+"Your music is important. Well organized, it's even better. Assemble simply "
+"your daily playlists thanks to Apollon."
+
+#: templates/layouts/splash.html:133
+msgid "Contact"
+msgstr ""
+
+#: templates/layouts/splash.html:141
+msgid "Address"
 msgstr ""
 
 #: templates/mail/account_validated.html:306
