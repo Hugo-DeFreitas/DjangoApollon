@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 21:10+0000\n"
+"POT-Creation-Date: 2019-12-22 15:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,73 +17,223 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: DjangoApollon/settings.py:130
+#: DjangoApollon/settings.py:132
 msgid "English"
 msgstr "Anglais"
 
-#: DjangoApollon/settings.py:131
+#: DjangoApollon/settings.py:133
 msgid "French"
 msgstr "Français"
 
-#: app/forms/register.py:16 templates/auth/sign_up.html:21
-msgid "First name"
-msgstr "Prénom"
-
-#: app/forms/register.py:18 templates/auth/sign_up.html:25
-msgid "Last name"
-msgstr "Nom de famille"
-
-#: app/forms/register.py:23
-msgid "First password"
-msgstr "Premier mot de passe"
-
-#: app/forms/register.py:28
-msgid "Second password"
-msgstr "Mot de passe vérification"
-
-#: templates/auth/sign_up.html:7
-msgid "Sign up"
-msgstr "S'inscrire"
-
-#: templates/auth/sign_up.html:9
-msgid "Sign up content"
-msgstr "Des millions de titres. Des playlists à l'infinie. Aucune carte de crédit nécessaire."
-
-#: templates/auth/sign_up.html:16
+#: app/forms/login.py:15 app/forms/register.py:14
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: templates/auth/sign_up.html:31
-msgid "Email"
-msgstr ""
-
-#: templates/auth/sign_up.html:35
+#: app/forms/login.py:21 app/forms/login.py:25 app/forms/password_reset.py:25
+#: app/forms/register.py:49
 msgid "Password"
 msgstr "Mot de passe"
 
-#: templates/auth/sign_up.html:39
+#: app/forms/password_reset.py:13 app/forms/register.py:22
+msgid "Email"
+msgstr ""
+
+#: app/forms/password_reset.py:21 app/forms/register.py:45
+msgid "First password"
+msgstr "Premier mot de passe"
+
+#: app/forms/password_reset.py:31 app/forms/register.py:55
+msgid "Second password"
+msgstr "Mot de passe vérification"
+
+#: app/forms/password_reset.py:35 app/forms/register.py:59
 msgid "Repeat password"
 msgstr "Vérification mot de passe"
 
-#: templates/auth/sign_up.html:44
+#: app/forms/register.py:27 app/forms/register.py:31
+msgid "First name"
+msgstr "Prénom"
+
+#: app/forms/register.py:35 app/forms/register.py:39
+msgid "Last name"
+msgstr "Nom de famille"
+
+#: app/forms/register.py:68
 msgid "Biography"
 msgstr "Bio"
 
-#: templates/auth/sign_up.html:48
-msgid "Let's go !"
-msgstr "C'est parti !"
+#: app/views/register.py:44 app/views/register.py:78
+#: templates/auth/thanks.html:9 templates/mail/welcome.html:306
+msgid "Thanks for signing up"
+msgstr "Merci de votre inscription"
 
-#: templates/auth/sign_up.html:50
-msgid "Forgotten password ?"
-msgstr "Mot de passe oublié ?"
+#: app/views/register.py:45 app/views/register.py:79
+msgid "Signing up message"
+msgstr ""
+"Bienvenue sur Apollon. Merci de valider votre compte en clickant simplement "
+"sur le lien ci-dessous."
 
-#: templates/auth/sign_up.html:52
-msgid "Already an account ?"
-msgstr "Déjà inscrit ?"
+#: templates/auth/account_validated.html:6
+msgid "Thanks"
+msgstr "Merci"
 
-#: templates/auth/sign_up.html:52
+#: templates/auth/account_validated.html:7
+#: templates/mail/account_validated.html:319
+msgid "Account validated heading"
+msgstr ""
+"Bienvenue à bord. Désormais, vous disposez d'un accès complet à notre "
+"incroyable site. Nous vous souhaitons un agréable moment en notre compagnie !"
+
+#: templates/auth/account_validated.html:13
+#: templates/auth/password_reset_complete.html:13
+#: templates/auth/password_reset_sent.html:13 templates/auth/thanks.html:13
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/auth/password_reset_ask.html:8
+msgid "You forgot your password content"
+msgstr ""
+"Il semblerait que vous ayez oublié votre mot de passe. Ne vous inquiétez "
+"pas, on s'occupe de tout. Renseignez l'adresse email que vous avez utilisée "
+"pour vous inscrire sur la plateforme Apollon. Vous recevrez dans les plus "
+"brefs délais un email disposant d'un lien pour réinitialiser votre mot de "
+"passe de manière sécurisée."
+
+#: templates/auth/password_reset_ask.html:22
+#: templates/auth/password_reset_confirm.html:30
+#: templates/mail/reset_password.html:307
+msgid "Reset my password"
+msgstr "Réinitialiser mon mot de passe"
+
+#: templates/auth/password_reset_complete.html:6
+msgid "Congratulations"
+msgstr "Félicitations"
+
+#: templates/auth/password_reset_complete.html:7
+msgid "Password reset procedure completed"
+msgstr "La demande de réinitialisation de mot de passe est un succès."
+
+#: templates/auth/password_reset_confirm.html:10
+#: templates/mail/reset_password.html:306
+msgid "We got you"
+msgstr "Heureusement que nous sommes là"
+
+#: templates/auth/password_reset_confirm.html:12
+msgid "Reset now your password content"
+msgstr ""
+"Nous sommes soulagés que vous ayez reçu notre email. Veuillez entrer et "
+"confirmer votre nouveau mot de passe. PS : essayez de vous en souvenir cette "
+"fois-ci ;)"
+
+#: templates/auth/password_reset_confirm.html:34
+msgid "What are you doing here ? This link is outdated."
+msgstr "Que faîtes-vous ici ? Ce lien est périmé."
+
+#: templates/auth/password_reset_sent.html:6
+msgid "A password reset email has been sent"
+msgstr "Une demande de réinitialisation de mot de passe a été émise par mail"
+
+#: templates/auth/password_reset_sent.html:7
+msgid "Password reset email sent content"
+msgstr ""
+"Nous venons tout juste de vous émettre un mail, qui vous permettra de "
+"réninitialiser votre mot de passe."
+
+#: templates/auth/sign_in.html:6 templates/auth/sign_up.html:50
+#: templates/layouts/splash.html:51
 msgid "Sign in"
 msgstr "Se connecter"
 
-#~ msgid "Welcome"
-#~ msgstr "Bienvenue"
+#: templates/auth/sign_in.html:8
+msgid "Sign in content"
+msgstr ""
+"Des millions de titres. Des playlists à l'infinie. Aucune carte de crédit "
+"nécessaire."
+
+#: templates/auth/sign_in.html:31 templates/auth/sign_up.html:48
+msgid "Let's go !"
+msgstr "C'est parti !"
+
+#: templates/auth/sign_in.html:32
+msgid "Forgotten password ?"
+msgstr "Mot de passe oublié ?"
+
+#: templates/auth/sign_in.html:34
+msgid "No account ?"
+msgstr "Pas de compte ?"
+
+#: templates/auth/sign_in.html:34 templates/auth/sign_up.html:7
+#: templates/layouts/splash.html:52
+msgid "Sign up"
+msgstr "S'inscrire"
+
+#: templates/auth/sign_in.html:44
+msgid "Please provide a correct password and/or username"
+msgstr "Merci de renseigner un nom d'utilisateur ou un mot de passe correct"
+
+#: templates/auth/sign_up.html:9
+msgid "Sign up content"
+msgstr ""
+"Des millions de titres. Des playlists à l'infinie. Aucune carte de crédit "
+"nécessaire."
+
+#: templates/auth/sign_up.html:50
+msgid "Already an account ?"
+msgstr "Déjà inscrit ?"
+
+#: templates/auth/thanks.html:10
+msgid "Email confirmation explanation"
+msgstr ""
+"Salut ! Vous êtes quasiment prêt pour pouvoir apprécier pleinement les "
+"fonctionnalités de notre site. Vous allez recevoir sous peu un mail de "
+"validation de compte, contenant le lien-clé de la confirmation."
+
+#: templates/layouts/home.html:4
+msgid "Sign out"
+msgstr "Se déconnecter"
+
+#: templates/mail/account_validated.html:9 templates/mail/reset_password.html:9
+#: templates/mail/welcome.html:9
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: templates/mail/account_validated.html:306
+msgid "Your account has been validated"
+msgstr "Votre compte a bien été validé"
+
+#: templates/mail/account_validated.html:336
+#: templates/mail/reset_password.html:337 templates/mail/welcome.html:338
+msgid "About"
+msgstr "À propos"
+
+#: templates/mail/account_validated.html:337
+#: templates/mail/reset_password.html:338 templates/mail/welcome.html:339
+msgid "Apollon short description"
+msgstr ""
+"Apollon est un créateur de playlist simple, mais terriblement efficace. Créé "
+"initiallement dans le cadre d'un projet scolaire afin d'apprendre le "
+"framework Django, les créateurs se sont emballés et les choses ont commencé "
+"à devenir intéressantes..."
+
+#: templates/mail/reset_password.html:320
+msgid "Password reset mail content"
+msgstr ""
+"\"Il m'arrive de perdre la mémoire au point d'oublier que je suis vieux.\" "
+"Philippe Bouvard."
+
+#: templates/mail/welcome.html:319
+msgid "Validate your account"
+msgstr "Valider mon compte"
+
+#: templates/mail/welcome.html:320
+msgid "Account validation explanation"
+msgstr ""
+"Pour des raisons évidentes de sécurité, nous vous demandons de valider par "
+"mail votre compte Apollon. Vous pourrez tout de même accéder à certaines "
+"fonctionnalités sans un compte validé, toutefois certaines fonctionnalités "
+"essentielles vous seront interdites. Validez votre compte dès à présent et "
+"profitez complètement de notre expérience."
+
+#: templates/mail/welcome.html:321
+msgid "Click here to validate your account"
+msgstr "Cliquez ici pour valider votre compte"

@@ -19,7 +19,9 @@ from django.contrib import admin
 from django.urls import path
 from app.views import *
 from app.views import splash
-from app.views.login import UserLoginView
+from app.views.login import UserLoginView, logout_view
+from app.views.password_reset import CustomPasswordResetView, password_reset_sent, CustomPasswordResetConfirmView, \
+    password_reset_complete
 from app.views.register import *
 from app.views.search import *
 
@@ -28,11 +30,17 @@ urlpatterns = [
     url('^$', splash, name='app_home'),
     # Admin
     path('admin/', admin.site.urls),
-    # Authentidication
+    # Authentification
     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
+    url(r'^sign_out/?$', logout_view, name='app_logout'),
+    path('reset_password/', CustomPasswordResetView.as_view(), name='app_reset_password'),
+    path('reset_password/sent', password_reset_sent, name='app_reset_password_mail_sent'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'),
+    path('reset_password/complete', password_reset_complete, name='password_reset_complete'),
     path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
-    path('sign_up/account_confirmation/<str:token>', account_confirmation, name='app_account_confirmation'),
+    path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
     # Moteur de recherche
     path('search/<str:search>', searchSongs, name='search_songs'),
     path('search/song/<int:search>', getSong, name='get_song'),
@@ -45,5 +53,12 @@ urlpatterns += i18n_patterns(
     # Authentification
     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
+    url(r'^sign_out/?$', logout_view, name='app_logout'),
+    path('reset_password/', CustomPasswordResetView.as_view(), name='app_reset_password'),
+    path('reset_password/sent', password_reset_sent, name='app_reset_password_mail_sent'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'),
+    path('reset_password/complete', password_reset_complete, name='password_reset_complete'),
     path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
+    path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
 )

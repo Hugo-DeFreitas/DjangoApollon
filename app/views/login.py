@@ -1,5 +1,7 @@
+from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.urls import reverse
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 from app.forms.login import LoginForm
 from app.models import UserProfile
@@ -10,5 +12,6 @@ class UserLoginView(LoginView):
     template_name = 'auth/sign_in.html'
     authentication_form = LoginForm
 
-    def get_success_url(self):
-        return reverse('app_home')
+def logout_view(request):
+    logout(request)
+    return redirect(reverse_lazy('app_login'))

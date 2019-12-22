@@ -1,1 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load static i18n %}
+{% block body %}
+    <a class="uk-button uk-button-default"  href="{% url 'app_logout' %}">{% trans 'Sign out' %}</a>
+{% endblock %}

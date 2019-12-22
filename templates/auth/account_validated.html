@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% load static i18n %}
+{% block body %}
+    <div class="uk-flex uk-flex-middle uk-container" uk-height-viewport uk-grid>
+        <div class="uk-width-1-2@m">
+            <h1 class="uk-text-large uk-text-lead">{% trans 'Thanks' %} {{ user_profile.user.username }} !</h1>
+            <p class="uk-text-primary">{% trans 'Account validated heading' %}</p>
+        </div>
+        <div class="uk-width-1-2@m">
+            <img uk-img class="uk-align-center" src="{% static 'img/illustrations/undraw_message_sent_1030.svg' %}">
+        </div>
+        <div class="uk-width-1-1 uk-text-center">
+            <button class="uk-button-default uk-button uk-button-large"><a href="{% url 'app_home' %}">{% trans 'Home' %}</a></button>
+        </div>
+    </div>
+{% endblock %}

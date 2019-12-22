@@ -7,26 +7,33 @@
             <p class="uk-text-light">
                 {% trans 'Sign in content' %}
             </p>
-            <form action="" id="{{ form.auto_id }}" method="post">
-                {% csrf_token %}
 
-                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
-                    <a class="uk-form-icon" uk-icon="icon: user"></a>
-                    {{ form.username }}
-                </div>
+            {% if next %}
+                <form id="{{ form.auto_id }}" action="{% url 'app_login' %}?next={{next}}" method="post" >
+            {%else%}
+                <form id="{{ form.auto_id }}" action="{% url 'app_login' %}" method="post" >
+            {% endif %}
+            {% csrf_token %}
 
-                <div class="uk-inline uk-width-1-1 uk-margin-bottom">
-                    <a class="uk-form-icon" uk-icon="icon: lock"></a>
-                    {{ form.password }}
-                </div>
+            <input type="hidden" name="next" value="{{ next }}">
 
-                <div class="uk-margin-top uk-child-width-1-2@m uk-grid-collapse" uk-grid>
-                    <button type="submit" class="uk-margin-bottom uk-button uk-button-large uk-button-primary uk-button-default">{% trans "Let's go !" %}</button>
-                    <a href="" class="uk-margin-bottom uk-button uk-button-large uk-button-secondary uk-button-default">{% trans "Forgotten password ?" %}</a>
-                    <p class="uk-text-meta">
-                        {% trans 'No account ?' %} <a href="{% url 'app_register' %}">{% trans 'Sign up' %}</a>.
-                    </p>
-                </div>
+            <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                <a class="uk-form-icon" uk-icon="icon: user"></a>
+                {{ form.username }}
+            </div>
+
+            <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                <a class="uk-form-icon" uk-icon="icon: lock"></a>
+                {{ form.password }}
+            </div>
+
+            <div class="uk-margin-top uk-child-width-1-2@m uk-grid-collapse" uk-grid>
+                <button type="submit" class="uk-margin-bottom uk-button uk-button-large uk-button-primary uk-button-default">{% trans "Let's go !" %}</button>
+                <a href="{% url 'app_reset_password' %}" class="uk-margin-bottom uk-button uk-button-large uk-button-secondary uk-button-default">{% trans "Forgotten password ?" %}</a>
+                <p class="uk-text-meta">
+                    {% trans 'No account ?' %} <a href="{% url 'app_register' %}">{% trans 'Sign up' %}</a>.
+                </p>
+            </div>
             </form>
         </div>
         <div class="uk-background-cover uk-visible@s" style="background-image: url('{% static 'img/listening-airpods.jpg' %}');" uk-height-viewport></div>
@@ -34,7 +41,7 @@
     <script>
         $(document).ready(function () {
             {% if form.errors %}
-                UIkit.notification('{% trans 'Please provide a correct password and/or username' %}','danger');
+                UIkit.notification("{% trans 'Please provide a correct password and/or username' %}",'danger');
             {% endif %}
         })
     </script>

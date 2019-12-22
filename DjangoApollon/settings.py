@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -130,6 +132,9 @@ LANGUAGES = (
     ('en', _('English')),
     ('fr', _('French')),
 )
+
+LOGIN_URL = '/sign_in'
+LOGIN_REDIRECT_URL = '/'
 
 GENIUS_API_CLIENT_ID = 'jSCXyeAiC8kpuRt96hAntZ0ZysmgtQQMKuCw2gC_E6MMrEcwfEjk-ruDGL0VSYVv'
 GENIUS_API_CLIENT_SECRET = 'ND_52u2YOxDwtttsSTwrGb9Pu8En3Z0SdSJsyT7Mp_zWvv416GRoz6nfPmIHCpCBZhDfaiksQ6S4jSX5Gd1K8w'
