@@ -17,5 +17,5 @@ def splash(request):
                 request)
         )
     else:
-        template = loader.get_template('layouts/splash.html')
-        return HttpResponse(template.render())
+        template = loader.render_to_string('layouts/splash.html')
+        return HttpResponse(template)

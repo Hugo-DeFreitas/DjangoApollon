@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from app.views import *
 from app.views import splash
+from app.views.change_language import change_language
 from app.views.login import UserLoginView, logout_view
 from app.views.password_reset import CustomPasswordResetView, password_reset_sent, CustomPasswordResetConfirmView, \
     password_reset_complete
@@ -45,6 +46,8 @@ urlpatterns = [
     path('search/<str:search>', searchSongs, name='search_songs'),
     path('search/song/<int:search>', getSong, name='get_song'),
     path('search/artist/<int:search>', getSong, name='get_artist'),
+    # Changement de langue
+    path('change_lang/<str:lang_code>', change_language, name='app_change_language')
 ]
 
 urlpatterns += i18n_patterns(
