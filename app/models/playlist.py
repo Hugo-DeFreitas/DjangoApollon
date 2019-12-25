@@ -5,19 +5,27 @@ from app.models.user_profile import UserProfile
 
 
 class Playlist(models.Model):
-    created_by = models.OneToOneField(UserProfile,
-                                      on_delete=models.CASCADE,
-                                      null=False)
+    created_by = models.ForeignKey(UserProfile,
+                                   blank=True,
+                                   null=True,
+                                   unique=False,
+                                   on_delete=models.CASCADE)
     title = models.CharField(blank=True,
                              null=False,
                              max_length=500)
+    picture = models.TextField(blank=True,
+                               null=True,
+                               default='/static/img/album-img-not-found.png',
+                               max_length=500)
     description = models.TextField(blank=True,
                                    null=True,
                                    default='No description provided',
                                    max_length=500)
     songs = models.ManyToManyField(Song,
+                                   blank=True,
                                    related_name='playlists')
     followers = models.ManyToManyField(UserProfile,
+                                       blank=True,
                                        related_name='playlists_followed')
 
     # Visibilité de la playlist

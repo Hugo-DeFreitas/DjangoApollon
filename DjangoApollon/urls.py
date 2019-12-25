@@ -18,13 +18,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path
 from app.views import *
-from app.views import splash
-from app.views.change_language import change_language
-from app.views.login import UserLoginView, logout_view
-from app.views.password_reset import CustomPasswordResetView, password_reset_sent, CustomPasswordResetConfirmView, \
-    password_reset_complete
-from app.views.register import *
-from app.views.search import *
+from app.views.playlist import PlaylistList, PlaylistDetail
 
 urlpatterns = [
     # Page d'accueil
@@ -47,7 +41,14 @@ urlpatterns = [
     path('search/song/<int:search>', getSong, name='get_song'),
     path('search/artist/<int:search>', getSong, name='get_artist'),
     # Changement de langue
-    path('change_lang/<str:lang_code>', change_language, name='app_change_language')
+    path('change_lang/<str:lang_code>', change_language, name='app_change_language'),
+    # Core Apollon
+    path('me/playlists/new', splash, name='app_new_playlist'),
+    path('me/playlists', PlaylistList.as_view(), name='app_user_playlists'),
+    path('playlists/<str:username>/<slug:pk>', PlaylistDetail.as_view(), name='app_playlist_detail'),
+    path('search/playlists', splash, name='app_search_playlists'),
+    path('search/songs', splash, name='app_search_songs'),
+
 ]
 
 urlpatterns += i18n_patterns(

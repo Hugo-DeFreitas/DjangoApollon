@@ -1,0 +1,139 @@
+{% extends 'layouts/home.html' %}
+{% load static i18n %}
+{% block content %}
+    <section class="uk-section uk-grid-large uk-grid-collapse" uk-grid>
+        <!-- Current user's playlist -->
+        <div class="uk-width-1-2@m uk-margin-top">
+            <div class="uk-container">
+                <h1>{% trans 'My playlists' %}</h1>
+                <p class="uk-text-meta">
+                    {% blocktrans with username=user.username%}
+                        Created by {{ username }}, for {{ username }}.
+                    {% endblocktrans %}
+                </p>
+                <ul class="uk-comment-list" uk-accordion>
+                    {% for playlist in object_list %}
+                        <li>
+                            <article class="uk-comment uk-comment-primary uk-visible-toggle" tabindex="-1">
+                                <header class="uk-comment-header uk-position-relative">
+                                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                                        <div class="uk-width-auto">
+                                            <img class="uk-comment-avatar" src="{{playlist.picture}}" width="80" height="80" alt="">
+                                        </div>
+                                        <div class="uk-width-expand">
+                                            <h4 class="uk-comment-title uk-margin-remove">
+                                                <a class="uk-link-reset"
+                                                   uk-tooltip="{% if playlist.is_public %}{% trans 'This playlist is public' %}{% else %}{% trans 'This playlist is private' %}{% endif %}">
+                                                    {{ playlist.title }}
+                                                    {% if playlist.is_public %}
+                                                        <span class="uk-text-success" uk-icon="check"></span>
+                                                    {% else %}
+                                                        <span class="uk-text-warning" uk-icon="lock" uk-tooltip="{% trans 'This playlist is private' %}"></span>
+                                                    {% endif %}
+                                                </a>
+                                            </h4>
+                                            <p class="uk-comment-meta uk-text-primary uk-margin-remove-top">
+                                                <span>{{playlist.songs.count}} {% trans 'Song(s)' %}</span> |
+                                                <span>{{playlist.followers.count}} {% trans 'Follower(s)' %}</span>
+                                            </p>
+                                            <p class="uk-text-italic">
+                                                {{ playlist.description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="{% url 'app_playlist_detail' playlist.created_by.user.username playlist.id %}">{% trans 'See the playlist' %}</a></div>
+                                </header>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- Current user's followed playlist -->
+        <div class="uk-width-1-2@m uk-margin-top">
+            <div class="uk-container">
+                <h1>{% trans 'Followed playlists' %}</h1>
+                <p class="uk-text-meta">{% trans 'Because music is above all something to share' %}.</p>
+                <ul class="uk-comment-list" uk-accordion>
+                    {% for playlist in playlists_followed %}
+                        <li>
+                            <article class="uk-comment uk-comment-primary uk-visible-toggle" tabindex="-1">
+                                <header class="uk-comment-header uk-position-relative">
+                                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                                        <div class="uk-width-auto">
+                                            <img class="uk-comment-avatar" src="{{playlist.picture}}" width="80" height="80" alt="">
+                                        </div>
+                                        <div class="uk-width-expand">
+                                            <h4 class="uk-comment-title uk-margin-remove">
+                                                <a class="uk-link-reset"
+                                                   uk-tooltip="{% if playlist.is_public %}{% trans 'This playlist is public' %}{% else %}{% trans 'This playlist is private' %}{% endif %}">
+                                                    {{ playlist.title }}
+                                                    {% if playlist.is_public %}
+                                                        <span class="uk-text-success" uk-icon="check"></span>
+                                                    {% else %}
+                                                        <span class="uk-text-warning" uk-icon="lock" uk-tooltip="{% trans 'This playlist is private' %}"></span>
+                                                    {% endif %}
+                                                </a>
+                                            </h4>
+                                            <p class="uk-comment-meta uk-text-primary uk-margin-remove-top">
+                                                <span>{{playlist.songs.count}} {% trans 'Song(s)' %}</span> |
+                                                <span>{{playlist.followers.count}} {% trans 'Follower(s)' %}</span>
+                                            </p>
+                                            <p class="uk-text-italic">
+                                                {{ playlist.description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="{% url 'app_playlist_detail' playlist.created_by.user.username playlist.id %}">{% trans 'See the playlist' %}</a></div>
+                                </header>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="uk-width-1-2@m uk-margin-top">
+            <div class="uk-container">
+                <h1>{% trans 'Trending' %}</h1>
+                <p class="uk-text-meta">The most followed playlists of the moment.</p>
+                <ul class="uk-comment-list" uk-accordion>
+                    {% for playlist in playlists_trending %}
+                        <li>
+                            {{ playlist }}
+                            <article class="uk-comment uk-comment-primary uk-visible-toggle" tabindex="-1">
+                                <header class="uk-comment-header uk-position-relative">
+                                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                                        <div class="uk-width-auto">
+                                            <img class="uk-comment-avatar" src="{{playlist.picture}}" width="80" height="80" alt="">
+                                        </div>
+                                        <div class="uk-width-expand">
+                                            <h4 class="uk-comment-title uk-margin-remove">
+                                                <a class="uk-link-reset"
+                                                   uk-tooltip="{% if playlist.is_public %}{% trans 'This playlist is public' %}{% else %}{% trans 'This playlist is private' %}{% endif %}">
+                                                    {{ playlist.title }}
+                                                    {% if playlist.is_public %}
+                                                        <span class="uk-text-success" uk-icon="check"></span>
+                                                    {% else %}
+                                                        <span class="uk-text-warning" uk-icon="lock" uk-tooltip="{% trans 'This playlist is private' %}"></span>
+                                                    {% endif %}
+                                                </a>
+                                            </h4>
+                                            <p class="uk-comment-meta uk-text-primary uk-margin-remove-top">
+                                                <span>{{playlist.songs.count}} {% trans 'Song(s)' %}</span> |
+                                                <span>{{playlist.followers.count}} {% trans 'Follower(s)' %}</span>
+                                            </p>
+                                            <p class="uk-text-italic">
+                                                {{ playlist.description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="{% url 'app_playlist_detail' playlist.created_by.user.username playlist.id %}">{% trans 'See the playlist' %}</a></div>
+                                </header>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}

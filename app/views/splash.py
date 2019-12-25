@@ -7,15 +7,19 @@ from app.models import UserProfile
 
 
 def splash(request):
-    if request.user.is_authenticated:
-        return HttpResponse(
-            loader.render_to_string(
-                'layouts/home.html',
-                {
-                    'user_profile': UserProfile.objects.get(user_id=request.user.id)
-                },
-                request)
-        )
-    else:
+    if not request.user.is_authenticated:
         template = loader.render_to_string('layouts/splash.html')
         return HttpResponse(template)
+
+    currentUser = UserProfile.objects.get(user_id=request.user.id)
+    if not currentUser:
+        template = loader.render_to_string('layouts/splash.html')
+        return HttpResponse(template)
+    return HttpResponse(
+        loader.render_to_string(
+            'layouts/home.html',
+            {
+                'user_profile': currentUser
+            },
+            request)
+    )

@@ -20,13 +20,13 @@
                         <ul class="uk-navbar-nav uk-visible@s">
                             <li class="uk-active uk-visible@m"><a href="{% url 'app_home' %}" data-uk-icon="home"></a></li>
                             <li>
-                                <a href="#features" data-uk-scroll="duration: 500">Features</a>
+                                <a href="#features" data-uk-scroll="duration: 500">{% trans 'Main features' %}</a>
                             </li>
                             <li>
-                                <a href="{% url 'app_register' %}" data-uk-scroll="duration: 500">{% trans 'Sign up' %}</a>
+                                <a href="{% url 'app_register' %}">{% trans 'Sign up' %}</a>
                             </li>
                             <li>
-                                <a href="{% url 'app_login' %}" data-uk-scroll="duration: 500">{% trans 'Sign in' %}</a>
+                                <a href="{% url 'app_login' %}">{% trans 'Sign in' %}</a>
                             </li>
                             <li>
                                 <a href="#" data-uk-icon="chevron-down">{% trans 'Language' %}</a>

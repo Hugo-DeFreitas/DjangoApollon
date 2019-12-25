@@ -183,7 +183,7 @@ msgstr ""
 
 #: templates/layouts/home.html:4
 msgid "Sign out"
-msgstr "Millions of songs. An infinity of playlists. No credit card needed."
+msgstr ""
 
 #: templates/layouts/splash.html:32
 msgid "Language"
