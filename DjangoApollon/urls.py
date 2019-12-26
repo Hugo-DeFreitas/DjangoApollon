@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from app.views import *
 from app.views.playlist import PlaylistList, PlaylistDetail
+from app.views.song import SongDetail
 
 urlpatterns = [
     # Page d'accueil
@@ -50,7 +51,7 @@ urlpatterns = [
     path('playlists/unfollow', PlaylistDetail.as_view(), name='app_playlist_unfollow'),
     path('search/playlists', splash, name='app_search_playlists'),
     path('search/songs', splash, name='app_search_songs'),
-
+    path('song/<slug:slug>', SongDetail.as_view(), name="app_song_detail")
 ]
 
 urlpatterns += i18n_patterns(

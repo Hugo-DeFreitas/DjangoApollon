@@ -1,0 +1,13 @@
+{% extends 'layouts/home.html' %}
+{% load static i18n %}
+{% block content %}
+    <section class="uk-section uk-container">
+        <h1>{{ object.title }}</h1>
+        {% for genius_info_key, genius_info in song %}
+            <h5>{{ genius_info_key }}</h5>
+            <p class="uk-text-meta">
+                {{ genius_info }}
+            </p>
+        {% endfor %}
+    </section>
+{% endblock %}
