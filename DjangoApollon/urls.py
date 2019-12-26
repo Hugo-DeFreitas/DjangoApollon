@@ -46,6 +46,8 @@ urlpatterns = [
     path('me/playlists/new', splash, name='app_new_playlist'),
     path('me/playlists', PlaylistList.as_view(), name='app_user_playlists'),
     path('playlists/<str:username>/<slug:pk>', PlaylistDetail.as_view(), name='app_playlist_detail'),
+    path('playlists/delete', PlaylistDetail.as_view(), name='app_playlist_delete'),
+    path('playlists/unfollow', PlaylistDetail.as_view(), name='app_playlist_unfollow'),
     path('search/playlists', splash, name='app_search_playlists'),
     path('search/songs', splash, name='app_search_songs'),
 
