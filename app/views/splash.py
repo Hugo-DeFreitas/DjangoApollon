@@ -1,7 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.template import loader, context
-from django.urls import reverse_lazy
+from django.template import loader
 
 from app.models import UserProfile
 

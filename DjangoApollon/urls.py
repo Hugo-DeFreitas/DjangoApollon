@@ -38,9 +38,9 @@ urlpatterns = [
     path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
     path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
     # Moteur de recherche
-    path('search/<str:search>', searchSongs, name='search_songs'),
-    path('search/song/<int:search>', getSong, name='get_song'),
-    path('search/artist/<int:search>', getSong, name='get_artist'),
+    path('search_engine/<str:search>', searchSongs, name='search_songs'),
+    path('search_engine/song/<int:search>', getSong, name='get_song'),
+    path('search_engine/artist/<int:search>', getSong, name='get_artist'),
     # Changement de langue
     path('change_lang/<str:lang_code>', change_language, name='app_change_language'),
     # Core Apollon
@@ -50,7 +50,7 @@ urlpatterns = [
     path('playlists/delete', PlaylistDetail.as_view(), name='app_playlist_delete'),
     path('playlists/unfollow', PlaylistDetail.as_view(), name='app_playlist_unfollow'),
     path('search/playlists', splash, name='app_search_playlists'),
-    path('search/songs', splash, name='app_search_songs'),
+    path('search/songs', songsSearchEngineView, name='app_search_songs'),
     path('song/<slug:slug>', SongDetail.as_view(), name="app_song_detail")
 ]
 

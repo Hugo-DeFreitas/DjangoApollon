@@ -1,0 +1,33 @@
+{% extends 'layouts/home.html' %}
+{% load static i18n custom_tags %}
+{% block content %}
+    <div uk-grid class="uk-grid-collapse">
+        <div class="uk-child-width-1-1 uk-flex-middle uk-flex-center uk-grid uk-grid-stack" data-uk-height-viewport="offset-bottom : true" uk-grid>
+            <!-- Search -->
+            <div class="uk-margin uk-align-center uk-flex-middle uk-first-column">
+                <div class="uk-container">
+                    <form method="get" class="uk-search uk-search-large uk-align-center">
+                        <input name="search" class="uk-search-input uk-text-center" type="search" value="{{ request.GET.search }}"
+                               placeholder="{% trans 'Search songs' %}" autofocus="">
+                    </form>
+                </div>
+            </div>
+            <!-- Results -->
+            <div class="uk-margin uk-grid-margin uk-first-column">
+                <div class="uk-container">
+                    <h1 class="uk-text-center uk-text-primary">{% trans 'Results' %}</h1>
+
+                    {% if not request.GET.search %}
+                        <p class="uk-text-center uk-text-meta">{% trans 'Enter an artist, a song, or lyrics in order to start searching.' %}</p>
+                    {% endif %}
+
+                    <ul class="uk-list uk-list-divider">
+                        {% for hit in api_response %}
+                            {{ hit|return_search_result_template }}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
