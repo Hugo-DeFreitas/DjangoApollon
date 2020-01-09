@@ -1,5 +1,10 @@
 {% extends 'layouts/home.html' %}
 {% load static i18n %}
 {% block content %}
-    {{ object }}
+    <h1>{{ object }}</h1>
+    <ul>
+        {% for song in object.songs.all %}
+            <li>{{ song }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

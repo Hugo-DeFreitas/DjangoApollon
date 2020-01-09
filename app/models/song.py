@@ -73,3 +73,6 @@ class Song(models.Model):
 
     def get_absolute_url(self):
         return reverse('app_song_detail', kwargs={'slug': self.slug})
+
+    def __str__(self):
+        return '{} -> {}'.format(self.genius_id, self.title)

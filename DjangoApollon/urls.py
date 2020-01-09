@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from app.views import *
 from app.views.playlist import PlaylistList, PlaylistDetail
-from app.views.song import SongDetail
+from app.views.song import SongDetail, create_if_not_exists, add_song_to_playlist
 
 urlpatterns = [
     # Page d'accueil
@@ -51,7 +51,9 @@ urlpatterns = [
     path('playlists/unfollow', PlaylistDetail.as_view(), name='app_playlist_unfollow'),
     path('search/playlists', splash, name='app_search_playlists'),
     path('search/songs', songsSearchEngineView, name='app_search_songs'),
-    path('song/<slug:slug>', SongDetail.as_view(), name="app_song_detail")
+    path('me/add-song-to-playlist/', add_song_to_playlist, name='app_add_song_to_playlist'),
+    path('song/<slug:slug>', SongDetail.as_view(), name="app_song_detail"),
+    path('song/create_if_not_exists/<int:genius_id>', create_if_not_exists, name="app_create_song_if_not_exists"),
 ]
 
 urlpatterns += i18n_patterns(
