@@ -1,0 +1,49 @@
+{% extends 'layouts/home.html' %}
+{% load static i18n custom_tags%}
+{% block content %}
+    <div class="uk-padding-large">
+        <h1>{% trans 'Create a new playlist' %}</h1>
+        <p class="uk-text-meta">
+            {% trans 'Create a new playlist meta content' %}
+        </p>
+        <form class="" action="" id="{{ form.auto_id }}" method="post">
+            {% csrf_token %}
+            <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                <a class="uk-form-icon" uk-icon="icon: bookmark"></a>
+                {{ form.title }}
+            </div>
+
+            <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                <a class="uk-form-icon" uk-icon="icon: quote-right"></a>
+                {{ form.description }}
+            </div>
+
+            <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                <a class="uk-form-icon" uk-icon="icon: image"></a>
+                {{ form.picture }}
+            </div>
+
+            <div class="uk-inline uk-width-1-1 uk-margin-bottom">
+                <label class="uk-text-meta">{% trans 'Check this box to share this playlist publicly.' %}</label>
+                <br>
+                {{ form.is_public }}
+            </div>
+
+            <div class="uk-margin-top uk-child-width-1-2@m uk-grid-collapse" uk-grid>
+                <button type="submit" class="uk-margin-bottom uk-button uk-button-large uk-button-primary uk-button-default">{% trans "Let's go !" %}</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        UIkit.notification('{{ field.label }} : {{ error }}', 'danger');
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        })
+    </script>
+{% endblock %}

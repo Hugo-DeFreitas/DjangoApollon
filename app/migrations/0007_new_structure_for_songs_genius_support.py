@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='song',
             name='genius_infos',
-            field=app.models.song.JSONField(blank=True, null=True),
+            field=app.models.song.TextField(blank=True, null=True),
         ),
         migrations.AlterField(
             model_name='song',

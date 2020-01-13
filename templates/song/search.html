@@ -23,7 +23,7 @@
 
                     <ul class="uk-list uk-list-divider">
                         {% for hit in api_response %}
-                            {{ hit|return_search_result_template }}
+                            {{ hit|get_item:'result'|return_search_result_template }}
                         {% endfor %}
                     </ul>
                 </div>

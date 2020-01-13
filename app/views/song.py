@@ -18,7 +18,7 @@ class SongDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        songData = self.object.genius_infos
+        songData = json.loads(self.object.genius_infos)
         context['song'] = songData
         return context
 
@@ -35,10 +35,9 @@ def create_if_not_exists_wrapper(request, genius_id):
     }
     songFromAPI = json.loads(requests.get(getSongEndpoint(genius_id),
                                           params=payload).text).get('response').get('song')
-
     song = Song(title=songFromAPI.get('title'),
                 genius_id=genius_id,
-                genius_infos=songFromAPI)
+                genius_infos=json.dumps(songFromAPI))
     song.save()
     return song
 
@@ -55,4 +54,4 @@ def add_song_to_playlist(request):
     playlist = Playlist.objects.filter(pk=playlist_id).get()
     playlist.songs.add(song)
     playlist.save()
-    return JsonResponse(serializers.serialize('json', [playlist, ]),safe=False)
+    return JsonResponse(serializers.serialize('json', [playlist, ]), safe=False)

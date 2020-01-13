@@ -1,0 +1,11 @@
+{% extends 'layouts/home.html' %}
+{% load static i18n custom_tags%}
+{% block content %}
+    areazaeraezzeezaezarez
+    <div class="uk-padding-large">
+        <form method="post">{% csrf_token %}
+            <p>Are you sure you want to delete "{{ object }}"?</p>
+            <input type="submit" value="Confirm">
+        </form>
+    </div>
+{% endblock %}

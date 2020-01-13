@@ -4,7 +4,7 @@
     <h1>{{ object }}</h1>
     <ul>
         {% for song in object.songs.all %}
-            <li>{{ song }}</li>
+            {{ song|return_search_result_template }}
         {% endfor %}
     </ul>
 {% endblock %}

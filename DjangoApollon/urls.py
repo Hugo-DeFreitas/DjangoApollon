@@ -18,7 +18,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path
 from app.views import *
-from app.views.playlist import PlaylistList, PlaylistDetail
+from app.views.playlist import PlaylistList, PlaylistDetail, PlaylistCreate, PlaylistDelete, PlaylistUpdate
 from app.views.song import SongDetail, create_if_not_exists, add_song_to_playlist
 
 urlpatterns = [
@@ -44,12 +44,16 @@ urlpatterns = [
     # Changement de langue
     path('change_lang/<str:lang_code>', change_language, name='app_change_language'),
     # Core Apollon
-    path('me/playlists/new', splash, name='app_new_playlist'),
+    # Gestion des playlists (création, liste personnelle, etc.)
+    path('me/playlists/new', PlaylistCreate.as_view(), name='app_new_playlist'),
     path('me/playlists', PlaylistList.as_view(), name='app_user_playlists'),
+    path('me/playlists/delete/<int:pk>', PlaylistDelete.as_view(), name='app_playlist_delete'),
+    path('me/playlists/update/<int:pk>', PlaylistUpdate.as_view(), name='app_playlist_update'),
     path('playlists/<str:username>/<slug:pk>', PlaylistDetail.as_view(), name='app_playlist_detail'),
-    path('playlists/delete', PlaylistDetail.as_view(), name='app_playlist_delete'),
     path('playlists/unfollow', PlaylistDetail.as_view(), name='app_playlist_unfollow'),
+
     path('search/playlists', splash, name='app_search_playlists'),
+    # Gestion des chansons (détail, recherche et ajout à une playlist existante).
     path('search/songs', songsSearchEngineView, name='app_search_songs'),
     path('me/add-song-to-playlist/', add_song_to_playlist, name='app_add_song_to_playlist'),
     path('song/<slug:slug>', SongDetail.as_view(), name="app_song_detail"),

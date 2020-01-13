@@ -47,8 +47,10 @@
                                             <p class="uk-text-muted uk-text-uppercase">
                                                 <a class="" href="{% url 'app_playlist_detail' playlist.created_by.user.username playlist.id %}">
                                                     {% trans 'See' %}</a> |
-                                                <a class="" href="{% url 'app_playlist_delete' %}">
-                                                    {% trans 'Delete' %}</a>
+                                                <a class="" href="{% url 'app_playlist_delete' playlist.id %}">
+                                                    {% trans 'Delete' %}</a> |
+                                                 <a class="" href="{% url 'app_playlist_update' playlist.id %}">
+                                                    {% trans 'Update' %}</a>
                                             </p>
                                         </div>
                                     </div>
