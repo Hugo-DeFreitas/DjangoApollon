@@ -1,10 +1,55 @@
 {% extends 'layouts/home.html' %}
 {% load static i18n %}
 {% block content %}
-    <h1>{{ object }}</h1>
-    <ul>
-        {% for song in object.songs.all %}
-            {{ song|return_search_result_template }}
-        {% endfor %}
-    </ul>
+    <div class="uk-container">
+        <div uk-grid class="uk-grid-collapse">
+            <div class="uk-width-1-2@s">
+                <!-- Playlist Heading -->
+                <article class="uk-comment uk-comment-primary uk-margin-top">
+                    <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+                        <div class="uk-width-expand">
+                            <h4 class="uk-comment-title uk-margin-remove">
+                                <a class="uk-link-reset">{{ object.title }}</a>
+                            </h4>
+                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                <li>{{object.followers.count}} Followers</li>
+                            </ul>
+                        </div>
+                    </header>
+                    <div class="uk-comment-body">
+                        <p>{{ object.description }}</p>
+                    </div>
+                </article>
+            </div>
+            <div class="uk-width-1-2@s">
+                <article class="uk-padding uk-comment uk-margin-top">
+                    <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+                        <div class="uk-width-expand">
+                            <h4 class="uk-comment-title uk-margin-remove">
+                                Followers
+                            </h4>
+                        </div>
+                    </header>
+                    <div class="uk-comment-body">
+                        {% if object.followers.count == 0 %}
+                            <p class="uk-text-meta">
+                            {% trans 'You have no followers for this playlist yet.' %}
+                            </p>
+                        {% else %}
+                            <ul class="uk-list uk-list-divider">
+                                {% for userProfile in object.followers.get %}
+                                    <li>{{ userProfile.user.username }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </article>
+            </div>
+        </div>
+        <ul>
+            {% for song in object.songs.all %}
+                {{ song|return_search_result_template }}
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

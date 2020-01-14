@@ -1,11 +1,14 @@
 {% extends 'layouts/home.html' %}
 {% load static i18n custom_tags%}
 {% block content %}
-    areazaeraezzeezaezarez
-    <div class="uk-padding-large">
-        <form method="post">{% csrf_token %}
-            <p>Are you sure you want to delete "{{ object }}"?</p>
-            <input type="submit" value="Confirm">
+    <div class="uk-padding-large container uk-flex uk-flex-center">
+        <form method="post">
+            {% csrf_token %}
+            <h1 class="uk-text-center">{% trans 'Are you sure you want to delete ' %} "<span class="uk-text-primary">{{ object }}</span>" ?</h1>
+            <div class="uk-flex uk-flex-center">
+                <input class="uk-button uk-button-default uk-button-danger" type="submit" value="{% trans 'Confirm' %}">
+                <a class="uk-button uk-button-default" href="{% url 'app_user_playlists' %}">{% trans 'Cancel' %}</a>
+            </div>
         </form>
     </div>
 {% endblock %}

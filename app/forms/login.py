@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from django.forms import models, widgets
+from django.forms import widgets
 
-from app.models import UserProfile
 from django.utils.translation import gettext_lazy as _
 
 
