@@ -44,6 +44,9 @@
             {% block  sidebar %}
                 <div uk-sticky="top: #usernav; offset: 100; media: @l" uk-height-viewport>
                     <ul class="uk-nav uk-nav-primary uk-margin-auto-vertical">
+                        <a href="{% url 'app_home' %}" class="uk-nav-header uk-text-middle">
+                            <span class="uk-margin-small-right" uk-icon="home"></span>{% trans 'Home' %}
+                        </a>
                         <!-- BROWSER -->
                         <li class="uk-nav-header"><span class="uk-margin-small-right" uk-icon="search"></span>{% trans 'Explore' %}</li>
                         <li class="uk-parent">

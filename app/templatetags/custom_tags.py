@@ -1,24 +1,23 @@
 import json
 
-from django.template.defaulttags import register
+from django import template
 from django.template.loader import render_to_string
 
 from app.models import Song, UserProfile
 
+register = template.Library()
 
-@register.filter
+
 def get_item(dictionary, key):
     if isinstance(dictionary, str):
         dictionary = json.loads(json.loads(dictionary))
     return dictionary.get(key)
 
 
-@register.filter
 def get_dictionnary_items(dictionary):
     return dictionary.items()
 
 
-@register.filter
 def return_song_search_result_template(item):
     songObject = json.loads(item.genius_infos) if isinstance(item, Song) else item
     return render_to_string('song/search-result.html', {
@@ -26,7 +25,6 @@ def return_song_search_result_template(item):
     })
 
 
-@register.filter
 def return_playlist_search_result_template(playlist, user):
     return render_to_string('playlist/search-result.html', {
         'object': playlist,
@@ -34,8 +32,14 @@ def return_playlist_search_result_template(playlist, user):
     })
 
 
-@register.filter
 def check_playlist_is_already_followed(playlist, user):
     userProfile = UserProfile.objects.get(user=user)
     playlist = playlist.followers.filter(user_id=userProfile.user.id)
     return True if playlist else False
+
+
+register.filter('get_item', get_item)
+register.filter('get_dictionnary_items', get_dictionnary_items)
+register.filter('return_song_search_result_template', return_song_search_result_template)
+register.filter('return_playlist_search_result_template', return_playlist_search_result_template)
+register.filter('check_playlist_is_already_followed', check_playlist_is_already_followed)

@@ -2,12 +2,68 @@
 {% load static i18n custom_tags%}
 {% block content %}
     <section class="uk-section uk-container">
-        <h1>{{ object.title }}</h1>
-        <div>
-            <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:2000px;overflow:hidden;background:transparent;"
-                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-                    src="https://embed.music.apple.com/us/song/{{ song|get_item:"apple_music_id"}}?i={{ song|get_item:"apple_music_id"}}&app=music"></iframe>
+        <div uk-grid class="uk-grid-collapse">
+            <!-- SONG HEADING -->
+            <div class="uk-width-1-1 uk-margin-bottom">
+                <h1>
+                    <img class="uk-border-circle" onerror="this.onerror=null;this.src='/static/img/album-img-not-found.png';" src="{{ song|get_item:'primary_artist'|get_item:'image_url' }}" width="100" alt="">
+                    {{ object.title }}
+                    {% trans 'by' %}&nbsp;<span class="uk-text-primary">{{ song|get_item:'primary_artist'|get_item:'name' }}</span>
+                    <span class="uk-animation-toggle" tabindex="0">
+                        <span data-genius_id="{{ song|get_item:'id' }}"
+                              class="play-song uk-text-primary uk-animation-fade"
+                              uk-icon="icon : play-circle; ratio : 3"></span>
+                    </span>
+                </h1>
+            </div>
+            <div class="uk-width-1-2@s">
+                <!-- SONG DESCRIPTION -->
+                <h3>{% trans 'Description' %}</h3>
+                <p>
+                    {{ song|get_item:'description'|get_item:'plain' }}
+                </p>
+                <!-- GENIUS PLAYER -->
+                {% autoescape off %}
+                    {{ song|get_item:'embed_content' }}
+                {% endautoescape %}
+            </div>
+            <div class="uk-width-1-2@s uk-flex uk-flex-center">
+                <div class="uk-grid-collapse">
+                    <div class="uk-width-1-1 ">
+                        <h3>Album</h3>
+                        <p class="uk-text-center">{% trans 'Song released on ' %} <span class="uk-text-primary">{{ song.release_date}}</span></p>
+                    </div>
+                    <!-- YOUTUBE PLAYER -->
+                    {% if youtube_id %}
+                        <div class="uk-width-1-1 uk-flex uk-align-center uk-flex-center uk-padding">
+                            <iframe class="uk-border-rounded" uk-responsive width="1920" height="1080"
+                                    src="https://www.youtube-nocookie.com/embed/{{youtube_id}}"
+                                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    {% endif %}
 
+                    <!-- MEDIAS SLIDER -->
+                    <div class="uk-width-1-1">
+                        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+                            <ul class="uk-slider-items uk-grid">
+                                <li class="uk-width-1-2">
+                                    <div class="uk-panel">
+                                        <img class="uk-border-rounded" src="{{ song|get_item:'song_art_image_url' }}">
+                                    </div>
+                                </li>
+                                <li class="uk-width-1-2">
+                                    <div class="uk-panel">
+                                        <img class="uk-border-rounded" src="{{ song|get_item:'header_image_url' }}">
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         {% for genius_info_key, genius_info in song|get_dictionnary_items %}
             <h5>{{ genius_info_key }}</h5>

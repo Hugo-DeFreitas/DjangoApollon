@@ -3,8 +3,7 @@ import json
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import serializers
-from django.forms import model_to_dict
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views.generic import DetailView
 
@@ -20,6 +19,10 @@ class SongDetail(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         songData = json.loads(self.object.genius_infos)
         context['song'] = songData
+        media = next((item for item in songData.get('media') if item['provider'] == 'youtube'), None)
+        context['youtube_id'] = None
+        if media:
+            context['youtube_id'] = media.get('url').split("?v=", 1)[1]
         return context
 
 

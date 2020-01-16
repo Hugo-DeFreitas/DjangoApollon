@@ -36,8 +36,8 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
         name='password_reset_confirm'),
     path('reset_password/complete', PasswordResetComplete.as_view(), name='password_reset_complete'),
-    path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
-    path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
+    path('sign_up/thanks', ThanksForSigningUpView.as_view(), name='app_thanks_for_signing_up'),
+    path('sign_up/account_confirmation', AccountConfirmationView.as_view(), name='app_account_confirmation'),
     # Moteur de recherche
     path('search_engine/<str:search>', searchSongs, name='search_songs'),
     path('search_engine/song/<int:search>', getSong, name='get_song'),
@@ -65,18 +65,18 @@ urlpatterns = [
     path('search/songs', SongSearchEngine.as_view(), name='app_search_songs'),
 ]
 
-urlpatterns += i18n_patterns(
-    # Page d'accueil
-    url('^$', splash, name='app_home'),
-    # Authentification
-    url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
-    url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
-    url(r'^sign_out/?$', UserLogoutView.as_view(), name='app_logout'),
-    path('reset_password/', CustomPasswordResetView.as_view(), name='app_reset_password'),
-    path('reset_password/sent', PasswordResetWasSentView.as_view(), name='app_reset_password_mail_sent'),
-    url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
-        name='password_reset_confirm'),
-    path('reset_password/complete', PasswordResetComplete.as_view(), name='password_reset_complete'),
-    path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
-    path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
-)
+# urlpatterns += i18n_patterns(
+#     # Page d'accueil
+#     url('^$', splash, name='app_home'),
+#     # Authentification
+#     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
+#     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
+#     url(r'^sign_out/?$', UserLogoutView.as_view(), name='app_logout'),
+#     path('reset_password/', CustomPasswordResetView.as_view(), name='app_reset_password'),
+#     path('reset_password/sent', PasswordResetWasSentView.as_view(), name='app_reset_password_mail_sent'),
+#     url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
+#         name='password_reset_confirm'),
+#     path('reset_password/complete', PasswordResetComplete.as_view(), name='password_reset_complete'),
+#     path('sign_up/thanks', Th, name='app_thanks_for_signing_up'),
+#     path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
+# )

@@ -1,5 +1,5 @@
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 
 from DjangoApollon.settings import *
 from app.forms.register import RegisterForm
@@ -53,44 +53,45 @@ class RegisterView(FormView):
 
         return super().form_valid(form)
 
-@login_required
-def thanks_for_signing_up(request):
-    if request.user.is_authenticated:
-        if UserProfile.objects.get(user_id=request.user.id).is_valid:
-            return redirect(reverse_lazy('app_home'))
-        template = loader.get_template('auth/thanks.html')
-        return HttpResponse(template.render())
-    else:
-        return HttpResponseNotFound()
+class ThanksForSigningUpView(LoginRequiredMixin, TemplateView):
+    template_name = 'auth/thanks.html'
 
-
-@login_required
-def account_confirmation(request):
-    token = request.GET.get('token')
-    if token:
-        user_profile = UserProfile.objects.get(confirmation_token=token)
-        if user_profile and not user_profile.is_valid:
-            user_profile.is_valid = True
-            user_profile.save()
-            # La validation est passée
-            send_mail(
-                _('Thanks for signing up'),
-                _('Signing up message'),
-                APOLLON_MAIL,
-                [user_profile.user.email],
-                fail_silently=False,
-                html_message=loader.render_to_string('mail/account_validated.html', {
-                    'username': user_profile.user.username,
-                })
-            )
-            return HttpResponse(loader.render_to_string('auth/account_validated.html',
-                                                        {
-                                                            'user_profile': user_profile
-                                                        }))
-        elif user_profile and user_profile.is_valid:
-            return redirect(reverse_lazy('app_home'))
+    def render_to_response(self, context, **response_kwargs):
+        if self.request.user.is_authenticated:
+            if UserProfile.objects.get(user_id=self.request.user.id).is_valid:
+                return redirect(reverse_lazy('app_home'))
+            template = loader.get_template('auth/thanks.html')
+            return HttpResponse(template.render())
         else:
             return HttpResponseNotFound()
 
-    else:
-        return HttpResponseNotFound()
+class AccountConfirmationView(LoginRequiredMixin, TemplateView):
+    def render_to_response(self, context, **response_kwargs):
+        token = self.request.GET.get('token')
+        if token:
+            user_profile = UserProfile.objects.get(confirmation_token=token)
+            if user_profile and not user_profile.is_valid:
+                user_profile.is_valid = True
+                user_profile.save()
+                # La validation est passée
+                send_mail(
+                    _('Thanks for signing up'),
+                    _('Signing up message'),
+                    APOLLON_MAIL,
+                    [user_profile.user.email],
+                    fail_silently=False,
+                    html_message=loader.render_to_string('mail/account_validated.html', {
+                        'username': user_profile.user.username,
+                    })
+                )
+                return HttpResponse(loader.render_to_string('auth/account_validated.html',
+                                                            {
+                                                                'user_profile': user_profile
+                                                            }))
+            elif user_profile and user_profile.is_valid:
+                return redirect(reverse_lazy('app_home'))
+            else:
+                return HttpResponseNotFound()
+
+        else:
+            return HttpResponseNotFound()
