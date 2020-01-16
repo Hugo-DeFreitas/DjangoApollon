@@ -48,7 +48,7 @@
         </div>
         <ul>
             {% for song in object.songs.all %}
-                {{ song|return_search_result_template }}
+                {{ song|return_song_search_result_template }}
             {% endfor %}
         </ul>
     </div>

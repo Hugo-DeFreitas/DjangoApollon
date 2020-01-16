@@ -1,5 +1,5 @@
 from .change_language import *
-from .login import *
+from .auth import *
 from .password_reset import *
 from .register import *
 from .splash import *

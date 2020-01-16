@@ -98,23 +98,55 @@
         </div>
         <div class="uk-width-5-6@l uk-width-1-1@s">
             {% block content %}
-                <div class="uk-position-relative uk-light uk-background-secondary">
-                    <div class="uk-cover-container uk-light uk-flex uk-flex-middle top-wrap-height uk-child-width-1-2@m">
-                        <!-- TOP CONTAINER -->
-                        <div class="uk-container uk-flex-auto top-container uk-position-relative uk-margin-medium-top" data-uk-parallax="y: 0,50; easing:0; opacity:0.2">
-                            <div data-uk-scrollspy="cls: uk-animation-slide-right-medium; target: > *; delay: 150">
-                                <h6 class="uk-text-primary uk-margin-small-bottom uk-text-capitalize">{% trans 'Welcome' %}</h6>
-                                <h1 class="uk-margin-remove-top">{% trans 'A better way to listen to your music' %}</h1>
-                                <p class="subtitle-text uk-visible@s">{% trans 'An alternative content' %}</p>
-                                <a href="{% url 'app_login' %}" title="{% trans 'Sign in' %}" class="uk-button uk-button-primary uk-border-pill uk-text-capitalize uk-margin-right" data-uk-scrollspy-class="uk-animation-fade">{% trans 'Sign in' %}</a>
-                                <a href="{% url 'app_register' %}" title="{% trans 'Sign up' %}" class="uk-button uk-button-primary uk-border-pill uk-text-capitalize" data-uk-scrollspy-class="uk-animation-fade">{% trans 'Sign up' %}</a>
-                            </div>
-                        </div>
-                        <div class="uk-visible@s uk-container uk-position-relative uk-margin-medium-top top-container" data-uk-parallax="y: 0,50; easing:0; opacity:0.2">
-                            <img uk-img src="{% static 'img/illustrations/undraw_contemplating_8t0x.svg' %}">
-                        </div>
-                        <!-- /TOP CONTAINER -->
-                    </div>
+                <div class="uk-container">
+                    <h1>{% trans 'Trending' %} <img src="{% static 'img/apollon-descr-1.jpg' %}" class="uk-border-rounded" width="100"></h1>
+                    <p class="uk-text-meta">The most followed playlists of the moment.</p>
+                    <ul class="uk-comment-list uk-margin-small">
+                        {% for playlist in playlists_trending %}
+                            <li class="uk-margin-top uk-margin-bottom">
+                                <article class="uk-comment uk-comment-primary uk-visible-toggle uk-padding-small" tabindex="-1">
+                                    <header class="uk-comment-header uk-position-relative">
+                                        <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                                            <div class="uk-width-1-1 uk-flex uk-flex-center">
+                                                <h4 class="uk-comment-title uk-margin-remove">
+                                                    <a class="uk-link-reset"
+                                                       uk-tooltip="{% if playlist.is_public %}{% trans 'This playlist is public' %}{% else %}{% trans 'This playlist is private' %}{% endif %}">
+                                                        {{ playlist.title }} <span class="uk-text-warning" uk-icon="bolt"></span>
+                                                        {% if playlist.is_public %}
+                                                            <span class="uk-text-success" uk-icon="check"></span>
+                                                        {% else %}
+                                                            <span class="uk-text-warning" uk-icon="lock" uk-tooltip="{% trans 'This playlist is private' %}"></span>
+                                                        {% endif %}
+                                                    </a>
+                                                </h4>
+                                            </div>
+
+                                            <div class="uk-width-1-4@s uk-flex uk-flex-middle uk-flex-center">
+                                                <img class="uk-comment-avatar" src="{{playlist.picture}}" width="120">
+                                            </div>
+
+                                            <div class="uk-width-expand">
+                                                <p class="uk-comment-meta uk-text-primary uk-margin-remove-top">
+                                                    <span>{{playlist.songs.count}} {% trans 'Song(s)' %}</span> |
+                                                    <span>{{playlist.followers.count}} {% trans 'Follower(s)' %}</span>
+                                                </p>
+                                                <hr>
+                                                <p class="uk-text-italic">
+                                                    {{ playlist.description }}
+                                                </p>
+                                                <p class="uk-text-muted uk-text-uppercase">
+                                                    {#                                            <a class="uk-text-muted" href="{% url 'app_playlist_detail' username=playlist.created_by.user.username pk=playlist.id %}">#}
+                                                    {#                                                {% trans 'See' %}</a> |#}
+                                                    <a class="uk-text-muted" href="{% url 'unfollow_playlist' %}?playlist_id={{ playlist.id }}">
+                                                        {% trans 'Unfollow' %}</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </header>
+                                </article>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             {% endblock %}
         </div>

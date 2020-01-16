@@ -34,5 +34,5 @@ class Playlist(models.Model):
                                     default=True)
 
     def __str__(self):
-        return '{} ({})'.format(self.title,
-                                self.created_by.user.username)
+        return '{} (by {})'.format(self.title,
+                                   self.created_by.user.username)

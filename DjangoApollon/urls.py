@@ -18,7 +18,8 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path
 from app.views import *
-from app.views.playlist import PlaylistList, PlaylistDetail, PlaylistCreate, PlaylistDelete, PlaylistUpdate
+from app.views.playlist import PlaylistList, PlaylistDetail, PlaylistCreate, PlaylistDelete, PlaylistUpdate, \
+    follow_playlist, unfollow_playlist
 from app.views.song import SongDetail, create_if_not_exists, add_song_to_playlist
 
 urlpatterns = [
@@ -28,13 +29,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Authentification
     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
+    url(r'^sign_out/?$', UserLogoutView.as_view(), name='app_logout'),
     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
-    url(r'^sign_out/?$', logout_view, name='app_logout'),
     path('reset_password/', CustomPasswordResetView.as_view(), name='app_reset_password'),
-    path('reset_password/sent', password_reset_sent, name='app_reset_password_mail_sent'),
+    path('reset_password/sent', PasswordResetWasSentView.as_view(), name='app_reset_password_mail_sent'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
         name='password_reset_confirm'),
-    path('reset_password/complete', password_reset_complete, name='password_reset_complete'),
+    path('reset_password/complete', PasswordResetComplete.as_view(), name='password_reset_complete'),
     path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
     path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
     # Moteur de recherche
@@ -43,6 +44,7 @@ urlpatterns = [
     path('search_engine/artist/<int:search>', getSong, name='get_artist'),
     # Changement de langue
     path('change_lang/<str:lang_code>', change_language, name='app_change_language'),
+
     # Core Apollon
     # Gestion des playlists (création, liste personnelle, etc.)
     path('me/playlists/new', PlaylistCreate.as_view(), name='app_new_playlist'),
@@ -50,14 +52,17 @@ urlpatterns = [
     path('me/playlists/delete/<int:pk>', PlaylistDelete.as_view(), name='app_playlist_delete'),
     path('me/playlists/update/<int:pk>', PlaylistUpdate.as_view(), name='app_playlist_update'),
     path('playlists/<str:username>/<slug:pk>', PlaylistDetail.as_view(), name='app_playlist_detail'),
-    path('playlists/unfollow', PlaylistDetail.as_view(), name='app_playlist_unfollow'),
+    path('playlists/follow', follow_playlist, name='follow_playlist'),
+    path('playlists/unfollow', unfollow_playlist, name='unfollow_playlist'),
 
-    path('search/playlists', splash, name='app_search_playlists'),
     # Gestion des chansons (détail, recherche et ajout à une playlist existante).
-    path('search/songs', songsSearchEngineView, name='app_search_songs'),
     path('me/add-song-to-playlist/', add_song_to_playlist, name='app_add_song_to_playlist'),
     path('song/<slug:slug>', SongDetail.as_view(), name="app_song_detail"),
     path('song/create_if_not_exists/<int:genius_id>', create_if_not_exists, name="app_create_song_if_not_exists"),
+
+    # Vue des moteurs de recherche
+    path('search/playlists', PlaylistSearchEngine.as_view(), name='app_search_playlists'),
+    path('search/songs', SongSearchEngine.as_view(), name='app_search_songs'),
 ]
 
 urlpatterns += i18n_patterns(
@@ -66,12 +71,12 @@ urlpatterns += i18n_patterns(
     # Authentification
     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
-    url(r'^sign_out/?$', logout_view, name='app_logout'),
+    url(r'^sign_out/?$', UserLogoutView.as_view(), name='app_logout'),
     path('reset_password/', CustomPasswordResetView.as_view(), name='app_reset_password'),
-    path('reset_password/sent', password_reset_sent, name='app_reset_password_mail_sent'),
+    path('reset_password/sent', PasswordResetWasSentView.as_view(), name='app_reset_password_mail_sent'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
         name='password_reset_confirm'),
-    path('reset_password/complete', password_reset_complete, name='password_reset_complete'),
+    path('reset_password/complete', PasswordResetComplete.as_view(), name='password_reset_complete'),
     path('sign_up/thanks', thanks_for_signing_up, name='app_thanks_for_signing_up'),
     path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
 )

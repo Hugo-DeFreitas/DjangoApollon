@@ -1,0 +1,67 @@
+{% load static i18n custom_tags %}
+<li>
+    <a class="uk-accordion-title">
+        {{ object.title }}
+        {% if object|check_playlist_is_already_followed:user %}
+            <span class="uk-text-primary uk-text-middle">
+                <span uk-icon="bookmark" uk-tooltip="{% trans 'You follow this playlist' %}" class="uk-text-success"></span>
+            </span>
+        {% endif %}
+        <span class="uk-text-primary uk-text-middle uk-align-right">
+            <span uk-icon="user"></span>&nbsp;{{object.followers.count}}
+        </span>
+        <span class="uk-text-primary uk-text-middle uk-align-right">
+            <span uk-icon="play-circle"></span>&nbsp;{{object.songs.count}}
+        </span>
+    </a>
+
+    <div class="uk-accordion-content">
+        <article class="uk-comment uk-visible-toggle uk-padding-small" tabindex="-1">
+            <header class="uk-comment-header uk-position-relative">
+                <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                    <div class="uk-width-1-1 uk-flex uk-flex-center">
+                        <h4 class="uk-comment-title uk-margin-remove">
+                            <a class="uk-link-reset"
+                               uk-tooltip="{% if object.is_public %}{% trans 'This playlist is public' %}{% else %}{% trans 'This playlist is private' %}{% endif %}">
+                                {{ object.title }}
+                                {% if object.is_public %}
+                                    <span class="uk-text-success" uk-icon="check"></span>
+                                {% else %}
+                                    <span class="uk-text-warning" uk-icon="lock" uk-tooltip="{% trans 'This playlist is private' %}"></span>
+                                {% endif %}
+                            </a>
+                        </h4>
+                    </div>
+
+                    <div class="uk-width-1-4@s uk-flex uk-flex-middle uk-flex-center">
+                        <img class="uk-comment-avatar" onerror="this.onerror=null;this.src='{% static 'img/album-img-not-found.png' %}';" src="{{object.picture}}" width="120">
+                    </div>
+
+                    <div class="uk-width-expand">
+                        <p class="uk-comment-meta uk-text-primary uk-margin-remove-top">
+                            <span>{{object.songs.count}} {% trans 'Song(s)' %}</span> |
+                            <span>{{object.followers.count}} {% trans 'Follower(s)' %}</span>
+                        </p>
+                        <hr>
+                        <p class="uk-text-italic uk-text-primary">
+                            {{ object.description }}
+                        </p>
+                        <p class="uk-text-muted uk-text-uppercase">
+                            <a class="" href="{% url 'app_playlist_detail' object.created_by.user.username user.id %}">
+                                {% trans 'See' %}</a> |
+                            {% if object|check_playlist_is_already_followed:user %}
+                                <a class="unfollow-playlist" data-playlist_id="{{ object.id }}">
+                                    {% trans 'Unfollow' %}
+                                </a>
+                            {% else %}
+                                <a class="follow-playlist" data-playlist_id="{{ object.id }}">
+                                    {% trans 'Follow' %}
+                                </a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </header>
+        </article>
+    </div>
+</li>

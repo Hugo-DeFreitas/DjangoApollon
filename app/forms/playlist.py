@@ -22,10 +22,11 @@ class PlaylistForm(forms.ModelForm):
                                   ))
     picture = forms.CharField(max_length=850,
                               required=False,
+                              empty_value='/static/img/album-img-not-found.png',
                               widget=widgets.Input(
                                   attrs={
                                       'class': 'uk-input',
-                                      'placeholder': _('Playlist thumbnail')
+                                      'placeholder': _('Playlist thumbnail'),
                                   }
                               ))
 

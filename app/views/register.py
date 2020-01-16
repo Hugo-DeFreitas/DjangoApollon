@@ -1,4 +1,4 @@
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
@@ -6,12 +6,11 @@ from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
-from django.urls import reverse, reverse_lazy
-
-from DjangoApollon.settings import *
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView
 
+from DjangoApollon.settings import *
 from app.forms.register import RegisterForm
 from app.models import UserProfile
 
