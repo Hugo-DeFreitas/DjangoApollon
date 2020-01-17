@@ -8,7 +8,10 @@
                 <h1>
                     <img class="uk-border-circle" onerror="this.onerror=null;this.src='/static/img/album-img-not-found.png';" src="{{ song|get_item:'primary_artist'|get_item:'image_url' }}" width="100" alt="">
                     {{ object.title }}
-                    {% trans 'by' %}&nbsp;<span class="uk-text-primary">{{ song|get_item:'primary_artist'|get_item:'name' }}</span>
+                    {% trans 'by' %}&nbsp;
+                    <a href="{{ song|get_item:'primary_artist'|get_item:'url' }}">
+                        <u><span class="uk-text-primary">{{ song|get_item:'primary_artist'|get_item:'name' }}</span></u>
+                    </a>
                     <span class="uk-animation-toggle" tabindex="0">
                         <span data-genius_id="{{ song|get_item:'id' }}"
                               class="play-song uk-text-primary uk-animation-fade"
@@ -19,20 +22,30 @@
             <div class="uk-width-1-2@s">
                 <!-- SONG DESCRIPTION -->
                 <h3>{% trans 'Description' %}</h3>
-                <p>
+                <p class="uk-padding-small">
                     {{ song|get_item:'description'|get_item:'plain' }}
                 </p>
+                <p class="uk-padding-small uk-text-center">{% trans 'Song released on ' %} <span class="uk-text-primary">{{ song.release_date}}</span></p>
+
                 <!-- GENIUS PLAYER -->
                 {% autoescape off %}
                     {{ song|get_item:'embed_content' }}
                 {% endautoescape %}
             </div>
             <div class="uk-width-1-2@s uk-flex uk-flex-center">
-                <div class="uk-grid-collapse">
-                    <div class="uk-width-1-1 ">
+                <div class="uk-grid-collapse uk-animation-toggle">
+                    {%  if song|get_item:'album' and song|get_item:'album'|get_item:'cover_art_url' %}
                         <h3>Album</h3>
-                        <p class="uk-text-center">{% trans 'Song released on ' %} <span class="uk-text-primary">{{ song.release_date}}</span></p>
-                    </div>
+                        <div class="uk-width-1-1">
+                            <!-- ALBUM -->
+                            <div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+                                 data-src="{{ song|get_item:'album'|get_item:'cover_art_url' }}"
+                                 uk-img onerror="this.onerror=null;this.src='/static/img/album-img-not-found.png';">
+                                <h1><a href="{{ song|get_item:'album'|get_item:'url' }}">{{ song|get_item:'album'|get_item:'name' }}</a></h1>
+                            </div>
+                        </div>
+                    {% endif %}
+
                     <!-- YOUTUBE PLAYER -->
                     {% if youtube_id %}
                         <div class="uk-width-1-1 uk-flex uk-align-center uk-flex-center uk-padding">
@@ -44,6 +57,7 @@
 
                     <!-- MEDIAS SLIDER -->
                     <div class="uk-width-1-1">
+                        <h3>{% trans 'Medias' %}</h3>
                         <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
                             <ul class="uk-slider-items uk-grid">
                                 <li class="uk-width-1-2">
@@ -65,11 +79,5 @@
                 </div>
             </div>
         </div>
-        {% for genius_info_key, genius_info in song|get_dictionnary_items %}
-            <h5>{{ genius_info_key }}</h5>
-            <p class="uk-text-meta">
-                {{ genius_info }}
-            </p>
-        {% endfor %}
     </section>
 {% endblock %}
