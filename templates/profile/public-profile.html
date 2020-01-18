@@ -1,0 +1,108 @@
+{% extends 'layouts/home.html' %}
+{% load static i18n custom_tags%}
+{% block content %}
+    <div class="uk-padding uk-grid-collapse" uk-grid>
+        <div class="uk-width-1-1">
+            <h1 class="uk-heading-large uk-inline">
+                {{object.username}}
+            </h1>
+            <h3 class="uk-align-right uk-text-secondary uk-flex-middle uk-flex" uk-tooltip="{% trans 'Playlist follower(s)' %}">
+                {{ total_follower }}&nbsp;&nbsp;<span uk-icon="user"></span>
+            </h3>
+        </div>
+        <div class="uk-width-1-1">
+            <!-- LAST LOGIN -->
+            <span class="uk-text-meta">
+                {% trans 'Last connection : ' %}<strong>{{ object.last_login }}</strong>
+                <span class="uk-badge" style="background-color: #32d296"></span>
+            </span>
+        </div>
+        <div class="uk-width-2-3@s">
+            <blockquote>
+                <p class="uk-margin-small-bottom">{{ profile.biography }}</p>
+                <footer>{% trans 'An awesome user of ' %} <cite class="uk-text-primary">Apollon</cite></footer>
+            </blockquote>
+
+            <!-- STATS -->
+            <div class="uk-grid-collapse uk-child-width-1-2@m" uk-grid>
+                <!-- JOINED DATE -->
+                <div class="uk-card uk-card-default uk-card-body">
+                    <h3 class="uk-card-title uk-text-success uk-text-center"><span uk-icon="icon:info;ratio:2"></span></h3>
+                    <p class="uk-text-center">
+                        {% if object.first_name and object.last_name %}
+                            {{ object.first_name }} {{ object.last_name }} {% trans 'joined us on' %}
+                            <span class="uk-text-success">{{ object.date_joined }}</span>
+                        {% else %}
+                            {{ object.username }} {% trans 'joined us on' %}
+                            <span class="uk-text-success">{{ object.date_joined }}</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- VERIFIED ACCOUNT -->
+                <div class="uk-card uk-card-default uk-card-body">
+                    {% if profile.is_valid %}
+                        <h3 class="uk-card-title uk-text-success uk-text-center"><span uk-icon="icon:check;ratio:2"></span></h3>
+                        <p class="uk-text-center">
+                            {% trans 'This user has a <span class="uk-text-success">verified</span> account' %}
+                        </p>
+                    {% else %}
+                        <h3 class="uk-card-title uk-text-warning uk-text-center"><span uk-icon="icon:ban;ratio:2"></span></h3>
+                        <p class="uk-text-center">
+                            {% trans 'This user has <span class="uk-text-warning">not verified</span> his account.' %}
+                        </p>
+                    {% endif %}
+                </div>
+
+                <div class="uk-width-1-1">
+                    <h1 class="uk-margin-top">{% trans 'A few numbers...' %}</h1>
+                    <ul class="uk-list uk-list-divider uk-list-large">
+                        <li>
+                            <h1 class="uk-text-lighter">
+                                <span>{{ playlists_created|length }}</span> {% trans 'Playlists' %}
+                            </h1>
+                        </li>
+                        <li>
+                            <h1 class="uk-text-lighter">
+                                <span>{{ total_follower }}</span> {% trans 'Followers' %}
+                            </h1>
+                        </li>
+                        <li>
+                            <h1 class="uk-text-lighter">
+                                <span>{{ total_songs }}</span> {% trans 'Songs' %}
+                            </h1>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="uk-width-1-3@s">
+            <p><span class="uk-margin-right uk-text-primary" uk-icon="question"></span>{% trans 'Click on the "+" to see the playlists.' %}</p>
+            <div class="uk-flex uk-flex-center">
+                <div class="uk-inline uk-light">
+                    <img class="uk-border-rounded" height="" width="350" src="{% static 'img/vinyls-collection.jpg' %}" alt="" uk-img>
+                    {% for playlist in playlists_created %}
+                        <a class="uk-position-absolute uk-transform-center"
+                           href="#playlist-{{ playlist.id }}"
+                           style="left: {% random_int 0 100 %}%; top: {% random_int 0 100 %}%"
+                           uk-toggle uk-marker></a>
+                        <div id="playlist-{{ playlist.id }}" uk-modal>
+                            <div class="uk-modal-dialog uk-modal-body">
+                                <h2 class="uk-modal-title">{{ playlist.title }}</h2>
+                                <p class="uk-text-meta">{{ playlist.description }}</p>
+                                <span class="uk-text-meta">
+                                    <span class="uk-text-primary">{{ playlist.songs|length }}</span> {% trans 'Songs' %}
+                                </span>
+                                <div class="uk-flex-center uk-flex">
+                                    <a class="uk-button uk-button-default" href="{% url 'app_playlist_detail' username=object.username pk=playlist.id%}">
+                                        {% trans 'See' %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

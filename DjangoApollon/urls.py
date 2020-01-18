@@ -20,6 +20,7 @@ from django.urls import path
 from app.views import *
 from app.views.playlist import PlaylistList, PlaylistDetail, PlaylistCreate, PlaylistDelete, PlaylistUpdate, \
     follow_playlist, unfollow_playlist
+from app.views.profile import ProfileUpdate, PublicProfile
 from app.views.song import SongDetail, create_if_not_exists, add_song_to_playlist
 
 urlpatterns = [
@@ -44,6 +45,11 @@ urlpatterns = [
     path('search_engine/artist/<int:search>', getSong, name='get_artist'),
     # Changement de langue
     path('change_lang/<str:lang_code>', change_language, name='app_change_language'),
+
+    # Gestion du profil
+    path('me/update/<int:pk>', ProfileUpdate.as_view(), name='app_profile_update'),
+    # Profils publics
+    url(r'^profiles/(?P<slug>[\w.@+-]+)$', PublicProfile.as_view(), name='app_public_profile'),
 
     # Core Apollon
     # Gestion des playlists (création, liste personnelle, etc.)

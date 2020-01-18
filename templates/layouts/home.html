@@ -77,7 +77,7 @@
                                 </li>
                                 <!-- PROFILE SETTINGS -->
                                 <li>
-                                    <a href="{% url 'app_home' %}"><span class="uk-margin-small-right" uk-icon="cog"></span>{% trans 'Profile' %}</a>
+                                    <a href="{% url 'app_profile_update' user.id %}"><span class="uk-margin-small-right" uk-icon="cog"></span>{% trans 'Profile' %}</a>
                                 </li>
                             </ul>
                         </li>
@@ -158,6 +158,13 @@
     <script>
         let CURRENT_SONG_IN_PLAYER = null;
         $(document).ready(function () {
+            {% if messages %}
+                {% for m in messages %}
+                    UIkit.notification('{{ m }}');
+                {% endfor %}
+
+            {% endif %}
+
             //Listen to the song preview
             $('.play-song').click(function () {
                 let self = $(this);

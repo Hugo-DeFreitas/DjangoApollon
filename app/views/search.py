@@ -64,8 +64,10 @@ class PlaylistSearchEngine(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        # By default, the suggestions contains the 5 most recent playlists created
+        context['suggestions'] = Playlist.objects.order_by('-created_at')[:5]
         # If there are no playlists found with the user query, let's give him name-based playlists choices
-        if not self.object_list:
+        if not self.object_list and self.request.GET.get('search'):
             allSimilarPlaylists = Playlist.objects.filter(
                 title__in=get_close_matches(word=self.request.GET.get('search'),
                                             possibilities=[title.get('title') for title in

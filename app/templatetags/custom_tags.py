@@ -1,4 +1,5 @@
 import json
+import random
 
 from django import template
 from django.template.loader import render_to_string
@@ -36,6 +37,12 @@ def check_playlist_is_already_followed(playlist, user):
     userProfile = UserProfile.objects.get(user=user)
     playlist = playlist.followers.filter(user_id=userProfile.user.id)
     return True if playlist else False
+
+@register.simple_tag
+def random_int(a, b=None):
+    if b is None:
+        a, b = 0, a
+    return random.randint(a, b)
 
 
 register.filter('get_item', get_item)

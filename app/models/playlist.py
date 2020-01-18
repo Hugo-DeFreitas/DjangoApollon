@@ -27,6 +27,9 @@ class Playlist(models.Model):
     followers = models.ManyToManyField(UserProfile,
                                        blank=True,
                                        related_name='playlists_followed')
+    created_at = models.DateTimeField(blank=True,
+                                      null=True,
+                                      auto_now_add=True)
 
     # Visibilité de la playlist
     is_public = models.BooleanField(blank=True,
