@@ -1,28 +1,20 @@
 from django.db.models import Count
-from django.http import HttpResponse
-from django.template import loader
+from django.views.generic import TemplateView
 
 from app.models import UserProfile, Playlist
 
 
-def splash(request):
-    if not request.user.is_authenticated:
-        template = loader.render_to_string('layouts/splash.html')
-        return HttpResponse(template)
+class SplashView(TemplateView):
+    def get_template_names(self):
+        if not self.request.user.is_authenticated:
+            return 'layouts/splash.html'
+        return 'layouts/home.html'
 
-    currentUser = UserProfile.objects.get(user_id=request.user.id)
-    if not currentUser:
-        template = loader.render_to_string('layouts/splash.html')
-        return HttpResponse(template)
-    mostFollowedPlaylists = (Playlist.objects
-                             .annotate(followers_count=Count('followers'))
-                             .order_by('-followers_count'))[:5]
-    return HttpResponse(
-        loader.render_to_string(
-            'layouts/home.html',
-            {
-                'user_profile': currentUser,
-                'playlists_trending': mostFollowedPlaylists
-            },
-            request)
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['playlists_trending'] = (Playlist.objects
+                                         .annotate(followers_count=Count('followers'))
+                                         .order_by('-followers_count'))[:5]
+        if self.request.user.is_authenticated:
+            context['user_profile'] = UserProfile.objects.get(user=self.request.user)
+        return context

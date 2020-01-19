@@ -19,13 +19,13 @@ from django.contrib import admin
 from django.urls import path
 from app.views import *
 from app.views.playlist import PlaylistList, PlaylistDetail, PlaylistCreate, PlaylistDelete, PlaylistUpdate, \
-    follow_playlist, unfollow_playlist
+    follow_playlist, unfollow_playlist, delete_song_from_playlist
 from app.views.profile import ProfileUpdate, PublicProfile
 from app.views.song import SongDetail, create_if_not_exists, add_song_to_playlist
 
 urlpatterns = [
     # Page d'accueil
-    url('^$', splash, name='app_home'),
+    url('^$', SplashView.as_view(), name='app_home'),
     # Admin
     path('admin/', admin.site.urls),
     # Authentification
@@ -60,6 +60,7 @@ urlpatterns = [
     path('playlists/<str:username>/<slug:pk>', PlaylistDetail.as_view(), name='app_playlist_detail'),
     path('playlists/follow', follow_playlist, name='follow_playlist'),
     path('playlists/unfollow', unfollow_playlist, name='unfollow_playlist'),
+    path('playlists/delete-song-from-playlist', delete_song_from_playlist, name='delete_song_from_playlist'),
 
     # Gestion des chansons (détail, recherche et ajout à une playlist existante).
     path('me/add-song-to-playlist/', add_song_to_playlist, name='app_add_song_to_playlist'),

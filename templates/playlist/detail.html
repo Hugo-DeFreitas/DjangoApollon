@@ -6,19 +6,32 @@
             <div class="uk-width-1-2@s">
                 <!-- Playlist Heading -->
                 <article class="uk-comment uk-comment-primary uk-margin-top">
-                    <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-expand">
-                            <h4 class="uk-comment-title uk-margin-remove">
+                    <header class="uk-comment-header uk-flex uk-flex-middle">
+                        <div class="uk-margin-right">
+                            <img uk-img width="150" src="{{ object.picture }}" class="uk-border-circle">
+                        </div>
+                        <div class="uk-width-expand uk-grid-collapse" uk-grid>
+                            <h4 class="uk-comment-title uk-width-1-1">
                                 <a class="uk-link-reset">{{ object.title }}</a>
                             </h4>
-                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                            <ul class="uk-comment-meta uk-subnav-divider">
                                 <li>{{object.followers.count}} Followers</li>
                             </ul>
+                            <div class="uk-width-1-1">
+                                <blockquote>
+                                    <p class="uk-margin-small-bottom">
+                                        {{ object.description }}
+                                    </p>
+                                    <footer>
+                                        {% trans 'Created by' %}
+                                        <cite>
+                                            <a href="{% url 'app_public_profile' object.created_by.user.username %}">{{ object.created_by.user.username }}</a>
+                                        </cite>
+                                    </footer>
+                                </blockquote>
+                            </div>
                         </div>
                     </header>
-                    <div class="uk-comment-body">
-                        <p>{{ object.description }}</p>
-                    </div>
                 </article>
             </div>
             <div class="uk-width-1-2@s">
@@ -28,25 +41,42 @@
                             <h4 class="uk-comment-title uk-margin-remove">
                                 Followers
                             </h4>
+                            <hr>
                         </div>
                     </header>
                     <div class="uk-comment-body">
                         {% if object.followers.count == 0 %}
                             <p class="uk-text-meta">
-                            {% trans 'You have no followers for this playlist yet.' %}
+                                {% trans 'You have no followers for this playlist yet.' %}
                             </p>
                         {% else %}
-                            <ul class="uk-list uk-list-divider">
-                                {% for userProfile in object.followers.get %}
-                                    <li>{{ userProfile.user.username }}</li>
-                                {% endfor %}
-                            </ul>
+                            <div class="uk-height-small" uk-overflow-auto>
+                                <ul class="uk-list uk-list-divider">
+                                    {% for userProfile in object.followers.all %}
+                                        <li>
+                                            {% if userProfile.user.first_name and  userProfile.user.first_name %}
+                                                <span>{{ userProfile.user.first_name }} {{ userProfile.user.last_name }}</span>
+                                            {% else %}
+                                                <span>{{ userProfile.user.username }}</span>
+                                            {% endif %}
+                                            {% if userProfile.is_valid %}
+                                                <span class="uk-text-success" uk-icon="check" uk-tooltip="{% trans 'Verified account' %}"></span>
+                                            {% else %}
+                                                <span class="uk-text-warning" uk-icon="ban" uk-tooltip="{% trans 'Account not verified' %}"></span>
+                                            {% endif %}
+                                            <a class="uk-align-right" href="{% url 'app_public_profile' userProfile.user.username %}">
+                                                {% trans 'See profile' %}.
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         {% endif %}
                     </div>
                 </article>
             </div>
         </div>
-        <ul>
+        <ul class="uk-list-divider uk-list">
             {% for song in object.songs.all %}
                 {{ song|return_song_search_result_template }}
             {% endfor %}

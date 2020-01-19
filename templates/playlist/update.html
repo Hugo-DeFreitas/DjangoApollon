@@ -2,9 +2,9 @@
 {% load static i18n custom_tags%}
 {% block content %}
     <div class="uk-padding-large">
-        <h1>{% trans 'My profile' %}</h1>
+        <h1>{% trans 'Update ' %}<span class="uk-text-primary">"{{ object.title }}"</span></h1>
         <p class="uk-text-meta">
-            {% trans 'My profile meta content' %}
+            {% trans 'Update playlist meta content' %}
         </p>
         <form class="" action="" id="{{ form.auto_id }}" method="post">
             {% csrf_token %}
@@ -29,10 +29,26 @@
                 {{ form.is_public }}
             </div>
 
-            <div class="uk-margin-top uk-child-width-1-2@m uk-grid-collapse" uk-grid>
-                <button type="submit" class="uk-margin-bottom uk-button uk-button-large uk-button-primary uk-button-default">{% trans "Let's go !" %}</button>
+            <div class="uk-margin-top uk-flex uk-flex-center">
+                <button type="submit" class="uk-margin-bottom uk-button uk-button-large uk-button-primary uk-button-default">{% trans 'Update' %}</button>
             </div>
         </form>
+        <h1 class="uk-text-light">{% trans 'Manage the songs' %}</h1>
+        <p class="uk-text-meta">
+            {% trans 'Update playlist meta content' %}
+        </p>
+        <ul class="uk-list-divider uk-list">
+            {% for song in object.songs.all %}
+                <li class="uk-text-middle">
+                    <span class="uk-h3">"<span class="uk-text-primary">{{ song.title }}</span>"</span>
+                    <span class="uk-align-right">
+                        <a target="_blank" href="{% url 'app_song_detail' song.slug %}" class="uk-button uk-button-primary">{% trans 'See' %}</a>
+                        <button data-playlist_id="{{ object.id }}" data-song_id="{{ song.id }}"
+                                type="button" class="delete-from-playlist uk-button uk-button-danger">{% trans 'Delete' %}</button>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
     <script>
@@ -44,6 +60,31 @@
                     {% endfor %}
                 {% endfor %}
             {% endif %}
+
+            $('.delete-from-playlist').click(function () {
+                let self = $(this);
+                let playlistID = self.data('playlist_id');
+                let songID = self.data('song_id');
+                $.ajax({
+                    url: '{% url 'delete_song_from_playlist' %}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        playlist_id : playlistID,
+                        song_id : songID,
+                    },
+                    success : function (result) {
+                        window.location.reload(true);
+                    },
+                    error : function (result) {
+                        UIkit.notification({
+                            message: '{% trans 'A critical error happened on the server. Please contact the support.' %}',
+                            status: 'danger',
+                            timeout: 3000,
+                        });
+                    }
+                });
+            });
         })
     </script>
 {% endblock %}

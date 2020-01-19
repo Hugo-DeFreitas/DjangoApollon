@@ -17,6 +17,11 @@
                               class="play-song uk-text-primary uk-animation-fade"
                               uk-icon="icon : play-circle; ratio : 3"></span>
                     </span>
+                    <span class="uk-animation-toggle" tabindex="0">
+                        <span data-genius_id="{{ song|get_item:'id' }}" class="add-to-playlist uk-text-primary uk-animation-fade"
+                              href="#playlist-choice-modal" uk-toggle
+                              uk-icon="icon:plus-circle;ratio:3"></span>
+                    </span>
                 </h1>
             </div>
             <div class="uk-width-1-2@s">

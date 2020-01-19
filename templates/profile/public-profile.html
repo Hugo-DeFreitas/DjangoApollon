@@ -5,20 +5,19 @@
         <div class="uk-width-1-1">
             <h1 class="uk-heading-large uk-inline">
                 {{object.username}}
-            </h1>
-            <h3 class="uk-align-right uk-text-secondary uk-flex-middle uk-flex" uk-tooltip="{% trans 'Playlist follower(s)' %}">
-                {{ total_follower }}&nbsp;&nbsp;<span uk-icon="user"></span>
-            </h3>
-        </div>
-        <div class="uk-width-1-1">
-            <!-- LAST LOGIN -->
-            <span class="uk-text-meta">
+                <!-- LAST LOGIN -->
+                <span class="uk-text-meta uk-text-nowrap">
                 {% trans 'Last connection : ' %}<strong>{{ object.last_login }}</strong>
                 <span class="uk-badge" style="background-color: #32d296"></span>
             </span>
+            </h1>
+        </div>
+        <div class="uk-width-1-1 uk-margin-bottom">
+
         </div>
         <div class="uk-width-2-3@s">
-            <blockquote>
+            <!-- BIOGRAPHY -->
+            <blockquote class="">
                 <p class="uk-margin-small-bottom">{{ profile.biography }}</p>
                 <footer>{% trans 'An awesome user of ' %} <cite class="uk-text-primary">Apollon</cite></footer>
             </blockquote>
@@ -26,7 +25,7 @@
             <!-- STATS -->
             <div class="uk-grid-collapse uk-child-width-1-2@m" uk-grid>
                 <!-- JOINED DATE -->
-                <div class="uk-card uk-card-default uk-card-body">
+                <div class="uk-card uk-card-secondary uk-card-body">
                     <h3 class="uk-card-title uk-text-success uk-text-center"><span uk-icon="icon:info;ratio:2"></span></h3>
                     <p class="uk-text-center">
                         {% if object.first_name and object.last_name %}
@@ -39,7 +38,7 @@
                     </p>
                 </div>
                 <!-- VERIFIED ACCOUNT -->
-                <div class="uk-card uk-card-default uk-card-body">
+                <div class="uk-card uk-card-secondary uk-card-body">
                     {% if profile.is_valid %}
                         <h3 class="uk-card-title uk-text-success uk-text-center"><span uk-icon="icon:check;ratio:2"></span></h3>
                         <p class="uk-text-center">
@@ -54,8 +53,7 @@
                 </div>
 
                 <div class="uk-width-1-1">
-                    <h1 class="uk-margin-top">{% trans 'A few numbers...' %}</h1>
-                    <ul class="uk-list uk-list-divider uk-list-large">
+                    <ul class="uk-margin-top uk-list uk-list-divider uk-list-large">
                         <li>
                             <h1 class="uk-text-lighter">
                                 <span>{{ playlists_created|length }}</span> {% trans 'Playlists' %}

@@ -20,12 +20,12 @@
                     {% if not request.GET.search %}
                         <p class="uk-text-center uk-text-meta">{% trans 'Enter a playlist name, a keyword, in order to start searching.' %}</p>
                     {% endif %}
-                    {% if not object_list %}
+                    {% if not object_list and request.GET.search %}
                         <p class="uk-text-center uk-text-meta">{% trans 'It seems like no playlists were found with the search : ' %}
                             <span class="uk-text-primary uk-text-bold">{{ request.GET.search }}</span>
                         </p>
 
-                        {% if suggestions %}
+                        {% if request.GET.search and suggestions %}
                             <div class="uk-margin-large-top">
                                 <h2 class="uk-text-center uk-text-lead">{% trans 'Maybe you meant' %}</h2>
                                 <div class="uk-flex uk-flex-center">
@@ -50,74 +50,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block add_scripts %}
-    <script>
-        $(document).ready(function () {
-            $('.follow-playlist').click(function () {
-                let spinner = UIkit.modal.dialog('<div class="uk-text-center"><span uk-spinner="ratio: 4.5"></span></div>');
-                let self = $(this);
-                $.ajax({
-                    url: '{% url 'follow_playlist' %}',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        playlist_id : self.data('playlist_id')
-                    },
-                    success : function (result) {
-                        spinner.toggle();
-                        UIkit.notification({
-                            message: '{% trans 'You follow now this playlist' %}',
-                            status: 'primary',
-                            timeout: 3000,
-                        });
-                        setTimeout(function () {
-                            window.location.reload(true);
-                        },1000)
-                    },
-                    error : function (result) {
-                        spinner.toggle();
-                        UIkit.notification({
-                            message: '{% trans 'A critical error happened on the server. Please contact the support.' %}',
-                            status: 'danger',
-                            timeout: 3000,
-                        });
-                    }
-                });
-            });
-
-            $('.unfollow-playlist').click(function () {
-                let spinner = UIkit.modal.dialog('<div class="uk-text-center"><span uk-spinner="ratio: 4.5"></span></div>');
-                let self = $(this);
-                $.ajax({
-                    url: '{% url 'unfollow_playlist' %}',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        playlist_id : self.data('playlist_id')
-                    },
-                    success : function (result) {
-                        spinner.toggle();
-                        UIkit.notification({
-                            message: '{% trans 'You have successfully unfollowed this playlist' %}',
-                            status: 'primary',
-                            timeout: 3000,
-                        });
-                        setTimeout(function () {
-                            window.location.reload(true);
-                        },1000)
-                    },
-                    error : function (result) {
-                        spinner.toggle();
-                        UIkit.notification({
-                            message: '{% trans 'A critical error happened on the server. Please contact the support.' %}',
-                            status: 'danger',
-                            timeout: 3000,
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 {% endblock %}

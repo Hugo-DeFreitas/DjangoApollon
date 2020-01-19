@@ -31,7 +31,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <a class="uk-navbar-toggle uk-navbar-item uk-hidden@s" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a>
+                            <a class="uk-navbar-toggle uk-navbar-item uk-hidden@s" data-uk-toggle data-uk-navbar-toggle-icon href="#sidebar"></a>
                         </div>
                     </nav>
                 </div>
@@ -78,6 +78,11 @@
                                 <!-- PROFILE SETTINGS -->
                                 <li>
                                     <a href="{% url 'app_profile_update' user.id %}"><span class="uk-margin-small-right" uk-icon="cog"></span>{% trans 'Profile' %}</a>
+                                </li>
+                                <li>
+                                    <span class="uk-text-meta uk-text-primary">
+                                        {% trans 'Logged as' %}&nbsp;<u>{{ user.username }}</u>.
+                                    </span>
                                 </li>
                             </ul>
                         </li>
@@ -155,6 +160,43 @@
         </div>
     </div>
 
+    <!-- Modal for playlists -->
+    <div id="playlist-choice-modal" class="uk-modal-full" uk-modal>
+        <div class="uk-modal-dialog">
+            <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
+            <div class="uk-grid-collapse uk-child-width-1-1 uk-flex-middle" uk-grid uk-height-viewport>
+                <div class="uk-padding-large">
+                    <h1>{% trans 'Add this song to your playlist' %}</h1>
+                    <p>
+                        {% trans 'Add this song to playlist content' %}
+                    </p>
+                    <ul class="uk-list uk-list-divider">
+                        {% for playlist in user_playlists %}
+                            <li>
+                                <div uk-grid class="uk-grid-collapse">
+                                    <div class="uk-width-1-5@s uk-text-center">
+                                        <button data-playlist_id="{{ playlist.id }}" type="button" class="choose-playlist uk-icon-button uk-modal-close" uk-icon="icon:plus;ration:3"></button>
+                                    </div>
+
+                                    <div class="uk-text-center uk-width-expand">
+                                        <span class="uk-h2 uk-text-primary uk-margin-remove">{{ playlist.title }} </span>
+                                    </div>
+
+                                    <div class="uk-width-1-5@s uk-text-center">
+                                        <span class="uk-badge">{{ playlist.followers.count }} Followers</span>
+                                        <a href="{% url 'app_playlist_detail' username=request.user.username pk=playlist.id %}"
+                                           target="_blank"
+                                           type="button" class="uk-icon-button" uk-icon="icon:album;ration:3"></a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let CURRENT_SONG_IN_PLAYER = null;
         $(document).ready(function () {
@@ -169,7 +211,7 @@
             $('.play-song').click(function () {
                 let self = $(this);
                 if(self.data('genius_id') != CURRENT_SONG_IN_PLAYER){
-                    let spinnerTemplate = '<span class="uk-text-center uk-margin-top uk-width-1-1" uk-spinner="ratio: 4.5"></span>';
+                    let spinnerTemplate = $('<span class="uk-text-center uk-margin-top uk-width-1-1" uk-spinner="ratio: 4.5"></span>');
                     let playerOffCanvas = $('#hidden-player-container');
                     playerOffCanvas.append(spinnerTemplate);
                     $.ajax({
@@ -180,6 +222,7 @@
                             CURRENT_SONG_IN_PLAYER = self.data('genius_id');
                             result = JSON.parse(result);
                             playerOffCanvas.empty();
+                            spinnerTemplate.remove();
                             callAppleMusicIframe(playerOffCanvas,result,function (iframe, geniusData) {
                                 iframe.after(`
                                 <div class="uk-width-1-1 uk-text-center uk-margin-top">
@@ -193,6 +236,7 @@
                         },
                         error : function (result) {
                             CURRENT_SONG_IN_PLAYER = null;
+                            spinnerTemplate.remove();
                             UIkit.notification({
                                 message: '{% trans 'A critical error happened on the server. Please contact the support.' %}',
                                 status: 'danger',
@@ -215,6 +259,101 @@
                 callback(hiddenIframe,geniusData);
             });
         }
+
+        $(document).ready(function () {
+            $('.follow-playlist').click(function () {
+                let self = $(this);
+                $.ajax({
+                    url: '{% url 'follow_playlist' %}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        playlist_id : self.data('playlist_id')
+                    },
+                    success : function (result) {
+                        UIkit.notification({
+                            message: '{% trans 'You follow now this playlist' %}',
+                            status: 'primary',
+                            timeout: 3000,
+                        });
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        },1000)
+                    },
+                    error : function (result) {
+                        UIkit.notification({
+                            message: '{% trans 'A critical error happened on the server. Please contact the support.' %}',
+                            status: 'danger',
+                            timeout: 3000,
+                        });
+                    }
+                });
+            });
+
+            $('.unfollow-playlist').click(function () {
+                let self = $(this);
+                $.ajax({
+                    url: '{% url 'unfollow_playlist' %}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        playlist_id : self.data('playlist_id')
+                    },
+                    success : function (result) {
+                        UIkit.notification({
+                            message: '{% trans 'You have successfully unfollowed this playlist' %}',
+                            status: 'primary',
+                            timeout: 3000,
+                        });
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        },1000)
+                    },
+                    error : function (result) {
+                        UIkit.notification({
+                            message: '{% trans 'A critical error happened on the server. Please contact the support.' %}',
+                            status: 'danger',
+                            timeout: 3000,
+                        });
+                    }
+                });
+            });
+
+            let CURRENT_SONG_CHOICE = null;
+            // Click on a search result button. It opens the playlist selection modal.
+            $('.add-to-playlist').click(function () {
+                let self = $(this); //closure
+                CURRENT_SONG_CHOICE = self.data('genius_id');
+            });
+
+            // When the user chooses the playlist he wants to add the 'CURRENT_SONG_CHOICE' song to
+            $('.choose-playlist').click(function () {
+                let self = $(this);
+                $.ajax({
+                    url: '{% url 'app_add_song_to_playlist' %}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        genius_id : CURRENT_SONG_CHOICE,
+                        playlist_id : self.data('playlist_id')
+                    },
+                    success : function (result) {
+                        UIkit.notification({
+                            message: '{% trans 'This song was succesfully added to the playlist' %}',
+                            status: 'primary',
+                            timeout: 3000,
+                        });
+                    },
+                    error : function (result) {
+                        UIkit.notification({
+                            message: '{% trans 'A critical error happened on the server. Please contact the support.' %}',
+                            status: 'danger',
+                            timeout: 3000,
+                        });
+                    }
+                });
+            });
+        });
     </script>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
@@ -9,11 +9,14 @@ from app.forms.profile import ProfileForm
 from app.models import UserProfile, Playlist
 
 
-class ProfileUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = User
     template_name = 'profile/update.html'
     form_class = ProfileForm
     success_message = _('Your profile was successfully updated')
+
+    def test_func(self):
+        return self.get_object() == self.request.user
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

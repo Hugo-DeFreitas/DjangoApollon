@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views.generic import DetailView
 
-from app.models import Song, Playlist
+from app.models import Song, Playlist, UserProfile
 from utils.genius import *
 
 
@@ -19,6 +19,7 @@ class SongDetail(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         songData = json.loads(self.object.genius_infos)
         context['song'] = songData
+        context['user_playlists'] = Playlist.objects.filter(created_by=UserProfile.objects.get(user=self.request.user))
         media = next((item for item in songData.get('media') if item['provider'] == 'youtube'), None)
         context['youtube_id'] = None
         if media:
