@@ -8,7 +8,7 @@
     <div class="top-wrap uk-position-relative uk-light uk-background-secondary">
         <!-- NAV -->
         <div class="nav" data-uk-sticky="cls-active: uk-background-secondary uk-box-shadow-medium; top: 100vh; animation: uk-animation-slide-top">
-            <div class="uk-container">
+            <div class="uk-padding-small">
                 <nav class="uk-navbar uk-navbar-container uk-navbar-transparent" data-uk-navbar>
                     <div class="uk-navbar-left">
                         <div class="uk-navbar-item uk-padding-remove-horizontal uk-animation-toggle">
@@ -47,7 +47,7 @@
 
         <div class="uk-cover-container uk-light uk-flex uk-flex-middle top-wrap-height uk-child-width-1-2@m">
             <!-- TOP CONTAINER -->
-            <div class="uk-container uk-flex-auto top-container uk-position-relative uk-margin-medium-top" data-uk-parallax="y: 0,50; easing:0; opacity:0.2">
+            <div class="uk-padding-small uk-margin-right uk-flex-auto top-container uk-position-relative uk-margin-medium-top" data-uk-parallax="y: 0,50; easing:0; opacity:0.2">
                 <div data-uk-scrollspy="cls: uk-animation-slide-right-medium; target: > *; delay: 150">
                     <h6 class="uk-text-primary uk-margin-small-bottom uk-text-capitalize">{% trans 'Welcome' %}</h6>
                     <h1 class="uk-margin-remove-top">{% trans 'A better way to listen to your music' %}</h1>
@@ -56,7 +56,7 @@
                     <a href="{% url 'app_register' %}" title="{% trans 'Sign up' %}" class="uk-button uk-button-primary uk-border-pill uk-text-capitalize" data-uk-scrollspy-class="uk-animation-fade">{% trans 'Sign up' %}</a>
                 </div>
             </div>
-            <div class="uk-visible@s uk-container uk-position-relative uk-margin-medium-top top-container" data-uk-parallax="y: 0,50; easing:0; opacity:0.2">
+            <div class="uk-visible@s uk-padding-small uk-margin-right uk-position-relative uk-margin-medium-top top-container" data-uk-parallax="y: 0,50; easing:0; opacity:0.2">
                 <img uk-img src="{% static 'img/illustrations/undraw_contemplating_8t0x.svg' %}">
             </div>
             <!-- /TOP CONTAINER -->
@@ -65,7 +65,7 @@
     <!-- /TOP -->
 
     <!-- Apollon Features -->
-    <section id="features" class="uk-section uk-section-default uk-grid-collapse uk-container uk-flex uk-flex-middle uk-padding-large" uk-grid>
+    <section id="features" class="uk-section uk-section-default uk-grid-collapse uk-padding-small uk-margin-right uk-flex uk-flex-middle uk-padding-large" uk-grid>
         <div class="uk-width-1-2@m" data-uk-scrollspy="target: > div; cls: uk-animation-slide-left-medium">
             <img src="{% static 'img/illustrations/undraw_music_r1se.svg' %}" data-src="{% static 'img/illustrations/undraw_music_r1se.svg' %}" alt="" data-uk-img>
         </div>
@@ -116,7 +116,7 @@
 
     <!-- FOOTER -->
     <footer class="uk-section uk-section-secondary uk-padding-remove-bottom">
-        <div class="uk-container">
+        <div class="uk-padding-small uk-margin-right">
             <div uk-grid class="uk-grid-small">
                 <div class="uk-width-3-5@m">
                     <h5 class="uk-text-uppercase">{% trans 'The apollon project' %}</h5>

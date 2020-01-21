@@ -1,11 +1,11 @@
 {% extends 'layouts/base.html' %}
-{% load static i18n %}
+{% load static i18n custom_tags%}
 {% block body %}
     {% block nav %}
         <div class="top-wrap uk-position-relative uk-light uk-background-secondary">
             <!-- NAV -->
             <div id="usernav" class="nav" uk-sticky="cls-active: uk-background-secondary uk-box-shadow-medium; top: 100vh; animation: uk-animation-slide-top">
-                <div class="uk-container">
+                <div class="uk-padding-small">
                     <nav class="uk-navbar uk-navbar-container uk-navbar-transparent" data-uk-navbar>
                         <div class="uk-navbar-left">
                             <div class="uk-navbar-item uk-padding-remove-horizontal uk-animation-toggle">
@@ -106,55 +106,143 @@
         </div>
         <div class="uk-width-5-6@l uk-width-1-1@s">
             {% block content %}
-                <div class="uk-container">
-                    <h1>{% trans 'Trending' %} <img src="{% static 'img/apollon-descr-1.jpg' %}" class="uk-border-rounded" width="100"></h1>
-                    <p class="uk-text-meta">The most followed playlists of the moment.</p>
-                    <ul class="uk-comment-list uk-margin-small">
-                        {% for playlist in playlists_trending %}
-                            <li class="uk-margin-top uk-margin-bottom">
-                                <article class="uk-comment uk-comment-primary uk-visible-toggle uk-padding-small" tabindex="-1">
-                                    <header class="uk-comment-header uk-position-relative">
-                                        <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                                            <div class="uk-width-1-1 uk-flex uk-flex-center">
-                                                <h4 class="uk-comment-title uk-margin-remove">
-                                                    <a class="uk-link-reset"
-                                                       uk-tooltip="{% if playlist.is_public %}{% trans 'This playlist is public' %}{% else %}{% trans 'This playlist is private' %}{% endif %}">
-                                                        {{ playlist.title }} <span class="uk-text-warning" uk-icon="bolt"></span>
-                                                        {% if playlist.is_public %}
-                                                            <span class="uk-text-success" uk-icon="check"></span>
-                                                        {% else %}
-                                                            <span class="uk-text-warning" uk-icon="lock" uk-tooltip="{% trans 'This playlist is private' %}"></span>
-                                                        {% endif %}
-                                                    </a>
-                                                </h4>
-                                            </div>
+                <div class="uk-grid-collapse uk-margin-top" uk-grid>
+                    <div class="uk-padding-small uk-width-1-1">
+                        <h1 class="uk-text-light">{% trans 'Discover' %}</h1>
+                        <!-- Random artist suggestion -->
+                        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+                            <div class="uk-card-media-right uk-cover-container uk-flex-center uk-flex">
+                                <img src="{{ random_artist|get_item:'image_url' }}" uk-cover>
+                                <canvas width="300" height="300"></canvas>
 
-                                            <div class="uk-width-1-4@s uk-flex uk-flex-middle uk-flex-center">
-                                                <img class="uk-comment-avatar" src="{{playlist.picture}}" width="120">
-                                            </div>
+                            </div>
+                            <div>
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">{{random_artist|get_item:'name'}}</h3>
+                                    <p>
+                                        {% if random_artist|get_item:'description' and random_artist|get_item:'description'|get_item:'plain' %}
+                                            {{ random_artist|get_item:'description'|get_item:'plain'|truncatewords:80 }}
+                                        {% else %}
+                                            {% trans 'No description provided' %}
+                                        {% endif %}
+                                        <br>
+                                        {% if random_artist|get_item:'user' and random_artist|get_item:'user'|get_item:'url' %}
+                                            <a href="{{ random_artist|get_item:'user'|get_item:'url' }}">{% trans 'See more' %}.</a>
+                                        {% endif %}
+                                        <a href="{% url 'app_search_songs' %}?search={{random_artist|get_item:'name'}}">{% trans 'Add songs in your playlist' %}.</a>
+                                    </p>
+                                    <hr>
+                                    <span class="uk-text-center">
+                                    {% if  random_artist|get_item:'instagram_name' %}
+                                        <a target="_blank"
+                                           href="https://www.instagram.com/{{ random_artist|get_item:'instagram_name' }}"
+                                           uk-icon="instagram"></a>
+                                    {% endif %}
+                                        {% if  random_artist|get_item:'facebook_name' %}
+                                            <a target="_blank"
+                                               href="https://www.facebook.com/{{ random_artist|get_item:'instagram_name' }}"
+                                               uk-icon="facebook"></a>
+                                        {% endif %}
+                                        {% if  random_artist|get_item:'twitter_name' %}
+                                            <a target="_blank"
+                                               href="https://www.twitter.com/{{ random_artist|get_item:'instagram_name' }}"
+                                               uk-icon="twitter"></a>
+                                        {% endif %}
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-padding-small uk-margin-top uk-width-1-2@s">
+                        <h1 class="uk-text-light">{% trans 'Trending' %}</h1>
+                        <p class="uk-text-meta">{% trans 'Most followed public playlists of the moment.' %}</p>
+                        <ul class="uk-comment-list uk-margin-small">
+                            {% for playlist in playlists_trending %}
+                                <li class="uk-margin-top uk-margin-bottom">
+                                    <article class="uk-comment uk-comment-primary uk-visible-toggle uk-padding-small" tabindex="-1">
+                                        <header class="uk-comment-header uk-position-relative">
+                                            <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                                                <div class="uk-width-1-1 uk-flex uk-flex-center">
+                                                    <h4 class="uk-comment-title uk-margin-remove">
+                                                        <a class="uk-link-reset"
+                                                           uk-tooltip="{% if playlist.is_public %}{% trans 'This playlist is public' %}{% else %}{% trans 'This playlist is private' %}{% endif %}">
+                                                            {{ playlist.title }} <span class="uk-text-warning" uk-icon="bolt"></span>
+                                                            {% if playlist.is_public %}
+                                                                <span class="uk-text-success" uk-icon="check"></span>
+                                                            {% else %}
+                                                                <span class="uk-text-warning" uk-icon="lock" uk-tooltip="{% trans 'This playlist is private' %}"></span>
+                                                            {% endif %}
+                                                        </a>
+                                                    </h4>
+                                                </div>
 
-                                            <div class="uk-width-expand">
-                                                <p class="uk-comment-meta uk-text-primary uk-margin-remove-top">
-                                                    <span>{{playlist.songs.count}} {% trans 'Song(s)' %}</span> |
-                                                    <span>{{playlist.followers.count}} {% trans 'Follower(s)' %}</span>
-                                                </p>
-                                                <hr>
-                                                <p class="uk-text-italic">
-                                                    {{ playlist.description }}
-                                                </p>
-                                                <p class="uk-text-muted uk-text-uppercase">
-                                                    {#                                            <a class="uk-text-muted" href="{% url 'app_playlist_detail' username=playlist.created_by.user.username pk=playlist.id %}">#}
-                                                    {#                                                {% trans 'See' %}</a> |#}
-                                                    <a class="uk-text-muted" href="{% url 'unfollow_playlist' %}?playlist_id={{ playlist.id }}">
-                                                        {% trans 'Unfollow' %}</a>
-                                                </p>
+                                                <div class="uk-width-1-4@s uk-flex uk-flex-middle uk-flex-center">
+                                                    <img class="uk-comment-avatar" src="{{playlist.picture}}" width="120">
+                                                </div>
+
+                                                <div class="uk-width-expand">
+                                                    <p class="uk-comment-meta uk-text-primary uk-margin-remove-top">
+                                                        <span>{{playlist.songs.count}} {% trans 'Song(s)' %}</span> |
+                                                        <span>{{playlist.followers.count}} {% trans 'Follower(s)' %}</span>
+                                                    </p>
+                                                    <hr>
+                                                    <p class="uk-text-italic">
+                                                        {{ playlist.description }}
+                                                    </p>
+                                                    <p class="uk-text-muted uk-text-uppercase">
+                                                        <a class="uk-text-muted" href="{% url 'app_playlist_detail' username=playlist.created_by.user.username pk=playlist.id %}">
+                                                            {% trans 'See' %}</a>
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </header>
-                                </article>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                                        </header>
+                                    </article>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="uk-padding-small uk-margin-top uk-width-1-2@s">
+                        <!-- New users card -->
+                        <h1 class="uk-text-light">{% trans 'New users' %}</h1>
+                        <p class="uk-text-meta">{% trans 'These guys just joined Apollon. Go check their profiles!' %}</p>
+                        <ul>
+                            {% for user in new_users %}
+                                <li>
+                                    <a href="{% url 'app_public_profile' user.user.username %}">{{ user }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="uk-child-width-1-2@s uk-grid-collapse" uk-grid>
+                            <!-- Search song card -->
+                            <div>
+                                <div class="uk-card uk-card-default">
+                                    <div class="uk-card-media-top">
+                                        <img src="{% static 'img/vinyls-collection.jpg' %}" alt="">
+                                    </div>
+                                    <div class="uk-card-body">
+                                        <h3 class="uk-card-title">{% trans 'Millions of songs' %}</h3>
+                                        <p>{% trans 'Search through a huge library and find your favourite songs.' %}</p>
+                                        <a href="{% url 'app_search_songs' %}">{% trans 'Start searching' %}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Search playlist card -->
+                            <div>
+                                <div class="uk-card uk-card-default">
+                                    <div class="uk-card-body">
+                                        <h3 class="uk-card-title">{% trans 'Homemade playlists' %}</h3>
+                                        <p>{% trans 'Browser the playlists created by the community.' %}</p>
+                                        <a href="{% url 'app_search_playlists' %}">{% trans 'Start searching' %}</a>
+                                    </div>
+                                    <div class="uk-card-media-bottom">
+                                        <img src="{% static 'img/vinyl-cases.jpg' %}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Search playlist-->
+                    </div>
                 </div>
             {% endblock %}
         </div>

@@ -42,6 +42,9 @@ class PublicProfile(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # On doit l'écraser parce que sur les User Detail Views de User model, l'indice de contexte
+        # 'user' avec celui qu'on observe...
+        context['user'] = self.request.user
         context['profile'] = UserProfile.objects.get(user=self.object)
         context['playlists_created'] = Playlist.objects.filter(created_by=context['profile'], is_public=True)
         context['total_songs'] = sum([playlist.songs.count() for playlist in context['playlists_created']])

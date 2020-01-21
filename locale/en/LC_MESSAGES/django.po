@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-22 18:51+0000\n"
+"POT-Creation-Date: 2020-01-21 08:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: DjangoApollon/settings.py:132 templates/layouts/splash.html:36
+#: DjangoApollon/settings.py:135 templates/layouts/home.html:29
+#: templates/layouts/splash.html:36
 msgid "English"
 msgstr ""
 
-#: DjangoApollon/settings.py:133 templates/layouts/splash.html:35
+#: DjangoApollon/settings.py:136 templates/layouts/home.html:28
+#: templates/layouts/splash.html:35
 msgid "French"
 msgstr ""
 
-#: app/forms/login.py:15 app/forms/register.py:14
+#: app/forms/login.py:14 app/forms/register.py:14
 msgid "Username"
 msgstr ""
 
-#: app/forms/login.py:21 app/forms/login.py:25 app/forms/password_reset.py:25
+#: app/forms/login.py:20 app/forms/login.py:24 app/forms/password_reset.py:25
 #: app/forms/register.py:49
 msgid "Password"
 msgstr ""
@@ -50,24 +52,51 @@ msgstr ""
 msgid "Repeat password"
 msgstr ""
 
-#: app/forms/register.py:27 app/forms/register.py:31
+#: app/forms/playlist.py:13
+msgid "Playlist title"
+msgstr ""
+
+#: app/forms/playlist.py:20
+#| msgid "Apollon short description"
+msgid "Playlist description"
+msgstr ""
+"Apollon is a simple, yet powerful, playlist creator. It was initially "
+"created for school purposes, in order to learn the Django Web Framework, but "
+"things started getting crazy :) ."
+
+#: app/forms/playlist.py:29
+msgid "Playlist thumbnail"
+msgstr ""
+
+#: app/forms/playlist.py:33
+msgid "Is public"
+msgstr ""
+
+#: app/forms/profile.py:9 app/forms/profile.py:13 app/forms/register.py:27
+#: app/forms/register.py:31 templates/profile/update.html:20
 msgid "First name"
 msgstr ""
 
-#: app/forms/register.py:35 app/forms/register.py:39
+#: app/forms/profile.py:17 app/forms/profile.py:21 app/forms/register.py:35
+#: app/forms/register.py:39 templates/profile/update.html:26
 msgid "Last name"
 msgstr ""
 
-#: app/forms/register.py:68
+#: app/forms/register.py:68 templates/profile/update.html:32
+#: templates/profile/update.html:36
 msgid "Biography"
 msgstr ""
 
-#: app/views/register.py:44 app/views/register.py:78
+#: app/views/profile.py:16
+msgid "Your profile was successfully updated"
+msgstr ""
+
+#: app/views/register.py:43 app/views/register.py:78
 #: templates/auth/thanks.html:9 templates/mail/welcome.html:306
 msgid "Thanks for signing up"
 msgstr ""
 
-#: app/views/register.py:45 app/views/register.py:79
+#: app/views/register.py:44 app/views/register.py:79
 msgid "Signing up message"
 msgstr ""
 "Welcome on Apollon. Please validate your account by clicking on the link."
@@ -87,7 +116,7 @@ msgstr ""
 #: templates/auth/password_reset_complete.html:13
 #: templates/auth/password_reset_confirm.html:36
 #: templates/auth/password_reset_sent.html:13 templates/auth/thanks.html:13
-#: templates/layouts/splash.html:160
+#: templates/layouts/home.html:48 templates/layouts/splash.html:160
 msgid "Home"
 msgstr ""
 
@@ -146,6 +175,7 @@ msgid "Sign in content"
 msgstr "Millions of songs. An infinity of playlists. No credit card needed."
 
 #: templates/auth/sign_in.html:31 templates/auth/sign_up.html:48
+#: templates/playlist/create.html:33
 msgid "Let's go !"
 msgstr ""
 
@@ -181,8 +211,156 @@ msgstr ""
 "Hey ! You're almost ready to fully enjoy Apollon. Simply click on the link "
 "bellow to verify your email address."
 
-#: templates/layouts/home.html:4
-msgid "Sign out"
+#: templates/layouts/home.html:51
+msgid "Explore"
+msgstr ""
+
+#: templates/layouts/home.html:56 templates/profile/public-profile.html:69
+#: templates/profile/public-profile.html:92
+msgid "Songs"
+msgstr ""
+
+#: templates/layouts/home.html:60 templates/layouts/home.html:72
+#: templates/profile/public-profile.html:59
+msgid "Playlists"
+msgstr ""
+
+#: templates/layouts/home.html:67
+msgid "Me"
+msgstr ""
+
+#: templates/layouts/home.html:76
+msgid "New playlist"
+msgstr ""
+
+#: templates/layouts/home.html:80
+msgid "Profile"
+msgstr ""
+
+#: templates/layouts/home.html:84
+msgid "Logged as"
+msgstr ""
+
+#: templates/layouts/home.html:98
+msgid "Start playing a song in order to make the player appearing."
+msgstr ""
+
+#: templates/layouts/home.html:111
+msgid "Discover"
+msgstr ""
+
+#: templates/layouts/home.html:126
+msgid "No description provided"
+msgstr ""
+
+#: templates/layouts/home.html:130
+msgid "See more"
+msgstr ""
+
+#: templates/layouts/home.html:132
+msgid "Add songs in your playlist"
+msgstr ""
+
+#: templates/layouts/home.html:157
+msgid "Trending"
+msgstr ""
+
+#: templates/layouts/home.html:158
+msgid "Most followed public playlists of the moment."
+msgstr ""
+
+#: templates/layouts/home.html:168 templates/playlist/list.html:35
+#: templates/playlist/list.html:99 templates/playlist/search-result.html:29
+msgid "This playlist is public"
+msgstr ""
+
+#: templates/layouts/home.html:168 templates/layouts/home.html:173
+#: templates/playlist/list.html:35 templates/playlist/list.html:40
+#: templates/playlist/list.html:99 templates/playlist/list.html:104
+#: templates/playlist/search-result.html:29
+#: templates/playlist/search-result.html:35
+msgid "This playlist is private"
+msgstr ""
+
+#: templates/layouts/home.html:185 templates/playlist/list.html:52
+#: templates/playlist/list.html:117 templates/playlist/search-result.html:47
+msgid "Song(s)"
+msgstr ""
+
+#: templates/layouts/home.html:186 templates/playlist/list.html:53
+#: templates/playlist/list.html:118 templates/playlist/search-result.html:48
+msgid "Follower(s)"
+msgstr ""
+
+#: templates/layouts/home.html:196 templates/playlist/list.html:128
+#: templates/playlist/search-result.html:59
+msgid "Unfollow"
+msgstr ""
+
+#: templates/layouts/home.html:209
+msgid "New users"
+msgstr ""
+
+#: templates/layouts/home.html:210
+msgid "These guys just joined Apollon. Go check their profiles!"
+msgstr ""
+
+#: templates/layouts/home.html:226 templates/layouts/splash.html:91
+msgid "Millions of songs"
+msgstr ""
+
+#: templates/layouts/home.html:227
+msgid "Search through a huge library and find your favourite songs."
+msgstr ""
+
+#: templates/layouts/home.html:228 templates/layouts/home.html:238
+msgid "Start searching"
+msgstr ""
+
+#: templates/layouts/home.html:236
+msgid "Homemade playlists"
+msgstr ""
+
+#: templates/layouts/home.html:237
+msgid "Browser the playlists created by the community."
+msgstr ""
+
+#: templates/layouts/home.html:259
+msgid "Add this song to your playlist"
+msgstr ""
+
+#: templates/layouts/home.html:261
+msgid "Add this song to playlist content"
+msgstr "Enrich your collection, depending on your mood, your needs"
+
+#: templates/layouts/home.html:320 templates/song/detail.html:11
+msgid "by"
+msgstr ""
+
+#: templates/layouts/home.html:321
+msgid "in"
+msgstr ""
+
+#: templates/layouts/home.html:331 templates/layouts/home.html:375
+#: templates/layouts/home.html:404 templates/layouts/home.html:439
+#: templates/playlist/update.html:81
+msgid "A critical error happened on the server. Please contact the support."
+msgstr ""
+
+#: templates/layouts/home.html:365
+msgid "You follow now this playlist"
+msgstr ""
+
+#: templates/layouts/home.html:394
+msgid "You have successfully unfollowed this playlist"
+msgstr ""
+
+#: templates/layouts/home.html:432
+msgid "This song was succesfully added to the playlist"
+msgstr ""
+
+#: templates/layouts/splash.html:23 templates/layouts/splash.html:75
+msgid "Main features"
 msgstr ""
 
 #: templates/layouts/splash.html:32
@@ -204,20 +382,15 @@ msgstr ""
 "Apollon is the best free alternative to the giants of the music industry. "
 "Free. Always."
 
-#: templates/layouts/splash.html:75
-msgid "Main features"
-msgstr ""
-
 #: templates/layouts/splash.html:76
 msgid "Why paying for something that you love"
 msgstr ""
 
 #: templates/layouts/splash.html:78
-msgid "Main features description"
+msgid "Apollon short description features"
 msgstr ""
-"Apollon is a simple, yet powerful, playlist creator. It was initially "
-"created for school purposes, in order to learn the Django Web Framework, but "
-"things started getting crazy :) ."
+"Your music is important. Well organized, it's even better. Assemble simply "
+"your daily playlists thanks to Apollon."
 
 #: templates/layouts/splash.html:84
 msgid "Share your playlists"
@@ -232,10 +405,6 @@ msgstr ""
 #: templates/layouts/splash.html:87
 msgid "Create your account"
 msgstr "Account validation"
-
-#: templates/layouts/splash.html:91
-msgid "Millions of songs"
-msgstr ""
 
 #: templates/layouts/splash.html:93
 msgid ""
@@ -267,11 +436,13 @@ msgstr ""
 msgid "The apollon project"
 msgstr ""
 
-#: templates/layouts/splash.html:124
-msgid "Apollon short description features"
+#: templates/layouts/splash.html:124 templates/mail/account_validated.html:337
+#: templates/mail/reset_password.html:338 templates/mail/welcome.html:339
+msgid "Apollon short description"
 msgstr ""
-"Your music is important. Well organized, it's even better. Assemble simply "
-"your daily playlists thanks to Apollon."
+"Apollon is a simple, yet powerful, playlist creator. It was initially "
+"created for school purposes, in order to learn the Django Web Framework, but "
+"things started getting crazy :) ."
 
 #: templates/layouts/splash.html:133
 msgid "Contact"
@@ -289,14 +460,6 @@ msgstr ""
 #: templates/mail/reset_password.html:337 templates/mail/welcome.html:338
 msgid "About"
 msgstr ""
-
-#: templates/mail/account_validated.html:337
-#: templates/mail/reset_password.html:338 templates/mail/welcome.html:339
-msgid "Apollon short description"
-msgstr ""
-"Apollon is a simple, yet powerful, playlist creator. It was initially "
-"created for school purposes, in order to learn the Django Web Framework, but "
-"things started getting crazy :) ."
 
 #: templates/mail/reset_password.html:320
 msgid "Password reset mail content"
@@ -317,3 +480,211 @@ msgstr ""
 #: templates/mail/welcome.html:321
 msgid "Click here to validate your account"
 msgstr ""
+
+#: templates/playlist/create.html:5 templates/playlist/list.html:21
+msgid "Create a new playlist"
+msgstr ""
+
+#: templates/playlist/create.html:7
+msgid "Create a new playlist meta content"
+msgstr "It's never enough anyway"
+
+#: templates/playlist/create.html:27 templates/playlist/update.html:27
+msgid "Check this box to share this playlist publicly."
+msgstr ""
+
+#: templates/playlist/delete.html:7
+msgid "Are you sure you want to delete "
+msgstr ""
+
+#: templates/playlist/delete.html:9
+msgid "Confirm"
+msgstr ""
+
+#: templates/playlist/delete.html:10
+msgid "Cancel"
+msgstr ""
+
+#: templates/playlist/detail.html:26
+msgid "Created by"
+msgstr ""
+
+#: templates/playlist/detail.html:50
+msgid "You have no followers for this playlist yet."
+msgstr "No followers for this playlist yey."
+
+#: templates/playlist/detail.html:63
+msgid "Verified account"
+msgstr ""
+
+#: templates/playlist/detail.html:65
+msgid "Account not verified"
+msgstr ""
+
+#: templates/playlist/detail.html:68
+msgid "See profile"
+msgstr ""
+
+#: templates/playlist/list.html:12
+msgid "My playlists"
+msgstr ""
+
+#: templates/playlist/list.html:14
+#, python-format
+msgid ""
+"\n"
+"                        Created by %(username)s, for %(username)s.\n"
+"                    "
+msgstr ""
+
+#: templates/playlist/list.html:20
+msgid "You don't have created any playlist yet"
+msgstr ""
+
+#: templates/playlist/list.html:61 templates/playlist/list.html:126
+#: templates/playlist/search-result.html:56 templates/playlist/update.html:45
+#: templates/profile/public-profile.html:96
+msgid "See"
+msgstr ""
+
+#: templates/playlist/list.html:63 templates/playlist/update.html:47
+msgid "Delete"
+msgstr ""
+
+#: templates/playlist/list.html:65 templates/playlist/update.html:33
+#: templates/profile/update.html:41
+msgid "Update"
+msgstr ""
+
+#: templates/playlist/list.html:80
+msgid "Followed playlists"
+msgstr ""
+
+#: templates/playlist/list.html:81
+msgid "Because music is above all something to share"
+msgstr ""
+
+#: templates/playlist/list.html:84
+msgid "You follow no playlists yet"
+msgstr ""
+
+#: templates/playlist/list.html:85
+msgid "Search for playlists"
+msgstr ""
+
+#: templates/playlist/search-result.html:11
+msgid "You follow this playlist"
+msgstr ""
+
+#: templates/playlist/search-result.html:63
+msgid "Follow"
+msgstr ""
+
+#: templates/playlist/search.html:11
+msgid "Search playlists"
+msgstr ""
+
+#: templates/playlist/search.html:18 templates/song/search.html:18
+msgid "Results"
+msgstr ""
+
+#: templates/playlist/search.html:21
+msgid "Enter a playlist name, a keyword, in order to start searching."
+msgstr ""
+
+#: templates/playlist/search.html:24
+msgid "It seems like no playlists were found with the search : "
+msgstr ""
+
+#: templates/playlist/search.html:30
+msgid "Maybe you meant"
+msgstr ""
+
+#: templates/playlist/update.html:5
+msgid "Update "
+msgstr ""
+
+#: templates/playlist/update.html:7 templates/playlist/update.html:38
+msgid "Update playlist meta content"
+msgstr "Because only fools never change their mind"
+
+#: templates/playlist/update.html:36
+msgid "Manage the songs"
+msgstr ""
+
+#: templates/profile/public-profile.html:10
+msgid "Last connection : "
+msgstr ""
+
+#: templates/profile/public-profile.html:22
+msgid "An awesome user of "
+msgstr ""
+
+#: templates/profile/public-profile.html:32
+#: templates/profile/public-profile.html:35
+msgid "joined us on"
+msgstr ""
+
+#: templates/profile/public-profile.html:45
+msgid "This user has a <span class=\"uk-text-success\">verified</span> account"
+msgstr ""
+
+#: templates/profile/public-profile.html:50
+msgid ""
+"This user has <span class=\"uk-text-warning\">not verified</span> his "
+"account."
+msgstr ""
+
+#: templates/profile/public-profile.html:64
+msgid "Followers"
+msgstr ""
+
+#: templates/profile/public-profile.html:78
+msgid "Click on the \"+\" to see the playlists."
+msgstr ""
+
+#: templates/profile/update.html:5
+msgid "My profile"
+msgstr ""
+
+#: templates/profile/update.html:7
+msgid "Update your profile meta content"
+msgstr "Keep yourself updated"
+
+#: templates/profile/update.html:13
+msgid "Your account was still not validated content"
+msgstr "Oops. Your account is still not confirmed. Please check your emails. It will take you only 30 seconds, we promise you."
+
+#: templates/profile/update.html:42
+msgid "See public profile"
+msgstr ""
+
+#: templates/song/detail.html:29
+msgid "Description"
+msgstr ""
+
+#: templates/song/detail.html:33
+msgid "Song released on "
+msgstr ""
+
+#: templates/song/detail.html:65
+msgid "Medias"
+msgstr ""
+
+#: templates/song/search-result.html:13
+msgid "views"
+msgstr ""
+
+#: templates/song/search.html:11
+msgid "Search songs"
+msgstr ""
+
+#: templates/song/search.html:21
+msgid "Enter an artist, a song, or lyrics in order to start searching."
+msgstr ""
+
+#~ msgid "Main features description"
+#~ msgstr ""
+#~ "Apollon is a simple, yet powerful, playlist creator. It was initially "
+#~ "created for school purposes, in order to learn the Django Web Framework, "
+#~ "but things started getting crazy :) ."

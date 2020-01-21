@@ -8,7 +8,7 @@
         </div>
         <!-- Current user's playlist -->
         <div class="uk-width-2-3@s uk-margin-top">
-            <div class="uk-container">
+            <div class="uk-container uk-margin-right">
                 <h1>{% trans 'My playlists' %}</h1>
                 <p class="uk-text-meta">
                     {% blocktrans with username=user.username%}
@@ -76,7 +76,7 @@
         </div>
         <!-- Current user's followed playlist -->
         <div class="uk-width-2-3@s uk-margin-top">
-            <div class="uk-container">
+            <div class="uk-container uk-margin-right">
                 <h1>{% trans 'Followed playlists' %}</h1>
                 <p class="uk-text-meta">{% trans 'Because music is above all something to share' %}.</p>
                 {% if not playlists_followed %}

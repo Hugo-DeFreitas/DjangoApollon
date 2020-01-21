@@ -5,7 +5,7 @@
         <div class="uk-child-width-1-1 uk-width-1-1 uk-flex-middle uk-flex-center uk-grid-collapse uk-margin-large-top" uk-grid>
             <!-- Search -->
             <div class="uk-align-center uk-flex-middle uk-flex-center">
-                <div class="uk-container">
+                <div class="uk-padding-small">
                     <form method="get" class="uk-align-center uk-flex-middle uk-flex-center">
                         <input name="search" class="uk-width-1-1 uk-form-width-large uk-input uk-form-large uk-text-center" type="search" value="{{ request.GET.search }}"
                                placeholder="{% trans 'Search songs' %}" autofocus="">
@@ -14,7 +14,7 @@
             </div>
             <!-- Results -->
             <div class="uk-margin uk-margin-large-bottom">
-                <div class="uk-container">
+                <div class="uk-padding-small">
                     <h1 class="uk-text-center uk-text-primary">{% trans 'Results' %}</h1>
 
                     {% if not request.GET.search %}
