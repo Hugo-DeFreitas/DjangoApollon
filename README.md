@@ -14,5 +14,8 @@ Il s'agit d'un site de création de playlist, d'écoute de titres
 Une base de données d'exemple a été créée à des fins de tests et d'exemples.
 Pour l'utiliser, il vous suffit d'exécuter à la racine du projet :
 ```bash
-cp ./example/sample.sqlite3 apollon.sqlite3
+cp -f ./example/sample.sqlite3 apollon.sqlite3
 ```
+Le superutilisateur est alors accessible :
+- username : apollon-admin
+- password : apollondjango
