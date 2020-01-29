@@ -59,11 +59,7 @@ msgstr ""
 #: app/forms/playlist.py:20
 #| msgid "Apollon short description"
 msgid "Playlist description"
-msgstr ""
-"Apollon est un créateur de playlist simple, mais terriblement efficace. Créé "
-"initiallement dans le cadre d'un projet scolaire afin d'apprendre le "
-"framework Django, les créateurs se sont emballés et les choses ont commencé "
-"à devenir intéressantes..."
+msgstr "Description de la playlist"
 
 #: app/forms/playlist.py:29
 msgid "Playlist thumbnail"
@@ -697,7 +693,7 @@ msgstr ""
 
 #: templates/song/detail.html:33
 msgid "Song released on "
-msgstr "Titre "
+msgstr "Titre paru le "
 
 #: templates/song/detail.html:65
 msgid "Medias"

@@ -72,18 +72,35 @@ urlpatterns = [
     path('search/songs', SongSearchEngine.as_view(), name='app_search_songs'),
 ]
 
-# urlpatterns += i18n_patterns(
-#     # Page d'accueil
-#     url('^$', splash, name='app_home'),
-#     # Authentification
-#     url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
-#     url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
-#     url(r'^sign_out/?$', UserLogoutView.as_view(), name='app_logout'),
-#     path('reset_password/', CustomPasswordResetView.as_view(), name='app_reset_password'),
-#     path('reset_password/sent', PasswordResetWasSentView.as_view(), name='app_reset_password_mail_sent'),
-#     url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
-#         name='password_reset_confirm'),
-#     path('reset_password/complete', PasswordResetComplete.as_view(), name='password_reset_complete'),
-#     path('sign_up/thanks', Th, name='app_thanks_for_signing_up'),
-#     path('sign_up/account_confirmation', account_confirmation, name='app_account_confirmation'),
-# )
+urlpatterns += i18n_patterns(
+    # Page d'accueil
+    url('^$', SplashView.as_view(), name='app_home'),
+    url(r'^sign_in/?$', UserLoginView.as_view(), name='app_login'),
+    url(r'^sign_out/?$', UserLogoutView.as_view(), name='app_logout'),
+    url(r'^sign_up/?$', RegisterView.as_view(), name='app_register'),
+    path('reset_password/', CustomPasswordResetView.as_view(), name='app_reset_password'),
+    path('reset_password/sent', PasswordResetWasSentView.as_view(), name='app_reset_password_mail_sent'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', CustomPasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'),
+    path('reset_password/complete', PasswordResetComplete.as_view(), name='password_reset_complete'),
+    path('sign_up/thanks', ThanksForSigningUpView.as_view(), name='app_thanks_for_signing_up'),
+    path('sign_up/account_confirmation', AccountConfirmationView.as_view(), name='app_account_confirmation'),
+
+    # Gestion du profil
+    path('me/update/<int:pk>', ProfileUpdate.as_view(), name='app_profile_update'),
+    # Profils publics
+    url(r'^profiles/(?P<slug>[\w.@+-]+)$', PublicProfile.as_view(), name='app_public_profile'),
+
+    # Core Apollon
+    # Gestion des playlists (création, liste personnelle, etc.)
+    path('me/playlists/new', PlaylistCreate.as_view(), name='app_new_playlist'),
+    path('me/playlists', PlaylistList.as_view(), name='app_user_playlists'),
+    path('me/playlists/delete/<int:pk>', PlaylistDelete.as_view(), name='app_playlist_delete'),
+    path('me/playlists/update/<int:pk>', PlaylistUpdate.as_view(), name='app_playlist_update'),
+    path('playlists/<str:username>/<slug:pk>', PlaylistDetail.as_view(), name='app_playlist_detail'),
+    # Gestion des chansons (détail, recherche et ajout à une playlist existante).
+    path('song/<slug:slug>', SongDetail.as_view(), name="app_song_detail"),
+    # Vue des moteurs de recherche
+    path('search/playlists', PlaylistSearchEngine.as_view(), name='app_search_playlists'),
+    path('search/songs', SongSearchEngine.as_view(), name='app_search_songs'),
+)
