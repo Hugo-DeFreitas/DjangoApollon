@@ -156,6 +156,11 @@
                     <div class="uk-padding-small uk-margin-top uk-width-1-2@s">
                         <h1 class="uk-text-light">{% trans 'Trending' %}</h1>
                         <p class="uk-text-meta">{% trans 'Most followed public playlists of the moment.' %}</p>
+                        {% if playlists_trending.count == 0 %}
+                            <p class="uk-text-danger">
+                            {% trans 'No playlists available for the moment' %}
+                            </p>
+                        {% endif %}
                         <ul class="uk-comment-list uk-margin-small">
                             {% for playlist in playlists_trending %}
                                 <li class="uk-margin-top uk-margin-bottom">
@@ -209,7 +214,7 @@
                         <ul>
                             {% for user in new_users %}
                                 <li>
-                                    <a href="{% url 'app_public_profile' user.user.username %}">{{ user }}</a>
+                                    <a href="{% url 'app_public_profile' user.user.username %}">{{ user.user.username }}</a>
                                 </li>
                             {% endfor %}
                         </ul>

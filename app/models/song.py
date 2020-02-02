@@ -8,6 +8,7 @@ import json
 
 from django.utils.text import slugify
 
+
 class Song(models.Model):
     genius_id = models.IntegerField(blank=True,
                                     null=True,
@@ -27,7 +28,7 @@ class Song(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        self.slug = slugify(self.title)
+        self.slug = '{}-{}'.format(json.loads(self.genius_infos).get('id'), slugify(self.title))
         super().save(force_insert, force_update, using, update_fields)
 
     def getGeniusInfosFromAPI(self, update_self=False):

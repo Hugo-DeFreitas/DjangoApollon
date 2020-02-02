@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path
+from django.views import static
+
 from app.views import *
 from app.views.playlist import PlaylistList, PlaylistDetail, PlaylistCreate, PlaylistDelete, PlaylistUpdate, \
     follow_playlist, unfollow_playlist, delete_song_from_playlist
@@ -24,6 +26,9 @@ from app.views.profile import ProfileUpdate, PublicProfile
 from app.views.song import SongDetail, create_if_not_exists, add_song_to_playlist
 
 urlpatterns = [
+    # Favicon
+    url(r'^favicon.ico/$', lambda x: HttpResponseRedirect(settings.STATIC_URL + 'favicon.ico')),
+
     # Page d'accueil
     url('^$', SplashView.as_view(), name='app_home'),
     # Admin

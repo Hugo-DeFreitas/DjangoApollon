@@ -73,7 +73,7 @@ class PlaylistSearchEngine(LoginRequiredMixin, ListView):
                                             possibilities=[title.get('title') for title in
                                                            Playlist.objects.filter(is_public=True).values('title')],
                                             cutoff=0.2))
-            context['suggestions'] = allSimilarPlaylists
+            context['suggestions'] = allSimilarPlaylists[:5]
         return context
 
     def get_queryset(self):
