@@ -1,21 +1,23 @@
 # DjangoApollon
-Projet Python réalisé en Django 3.
-Il s'agit d'un site de création de playlist, d'écoute de titres
+Python project built with Django 3.
+It’s a playlist creation and music listening website (Spotify clone), that showcases Django/Pythion best practices and capabilities
 
-# Fonctionnalités 
-- Rechercher parmi des millions de titres, avec le câblage avec les API d'Apple Music et de Genius. Découvrez des détails sur les paroles, l'artiste, ou l'album.
-- Créez des playlists. Partagez-les avec vos amis ou gardez-les privées.
-- Authentification sécurisée 
-  - Confirmation de compte par mail (génération de token)
-  - Procédure d'oubli de mot de passe sécurisée (chaînée, génération de token)
-- Suivez d'autres utilisateurs, découvrez leurs playlists.
+# Features 
+- Search among millions of songs, thanks to integrations with the Apple Music and Genius APIs.
+- Discover detailed information about lyrics, artists, and albums.
+- Create playlists. Share them with friends, or keep them private.
+- Secure authentication.
+- Email account confirmation using token generation.
+-	Secure password reset flow (chained steps with token generation).
+-	Follow other users, and discover their playlists.
 
-# Base de données 
-Une base de données d'exemple a été créée à des fins de tests et d'exemples.
-Pour l'utiliser, il vous suffit d'exécuter à la racine du projet :
+# Database
+A sample database is available for testing and demo purposes.
+To use it, run the following command at the root of the project:
+
 ```bash
 cp -f ./example/sample.sqlite3 apollon.sqlite3
 ```
-Le superutilisateur est alors accessible :
-- username : apollon-admin
-- password : apollondjango
+The superuser credentials are:
+- username: apollon-admin
+- password: apollondjango
